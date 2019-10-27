@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import Weather from "./weather";
+import Weather from "./components/weather";
 
 class App extends Component {
   render() {
