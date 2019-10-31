@@ -1,8 +1,5 @@
 import React, { Component } from "react";
-import axios from "axios";
 
-const key  = "046929b6c2f2f189479736b09c5814bd";
-const addr = `http://api.openweathermap.org/data/2.5/weather?q=Seoul&appid=${key}`; 
 
 class weather extends Component {
   
@@ -12,8 +9,8 @@ class weather extends Component {
   }
 
   async componentDidMount() {
-    let {data : result} = await axios.get(addr);
-    this.setState({ result });
+    // let {data : result} = await axios.get(addr);
+    // this.setState({ result });
   }
 
   render() {
