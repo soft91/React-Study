@@ -1,56 +1,63 @@
 import React, {Component} from 'react';
-let xhr;
+import axios from 'axios';
 
 export default class search extends Component {
 
     constructor(props){
         super(props);
         this.state = { 
-            local : ""
+            result : [],
         };
 
         this.handleChange = this.handleChange.bind(this);
         this.resultClick  = this.resultClick.bind(this);
-        this.processRequest = this.processRequest.bind(this);
     }
 
-    handleChange(e){
-        this.setState({
-            local : e.target.value
-        })
+    componentDidMount(){
+        const jsonURL = 'dummy/country.json';
+
+        axios.get(jsonURL)
+             .then(obj => {
+               this.setState({
+                  result : this.state.result.concat(obj.data)
+               });
+             })
+             .catch(error => {
+                alert("json 객체가 없습니다.");
+             });
+    }
+
+    handleChange(){
+    
     }
 
     resultClick(){
-        const jsonURL = 'dummy/country.json';
-
-        xhr = new XMLHttpRequest();
-        xhr.open("GET", jsonURL, true);
-        xhr.send();
-
-        xhr.addEventListener('readystatechange', this.processRequest, false);
-    }
-
-    processRequest(){
-        if(xhr.readyState === 4 && xhr.status === 200) {
-            let response = JSON.parse(xhr.responseText);
-            let key   = "facec94daf1f7f6e25047395ffdbfa19";
-            let local = this.state.local;
-            debugger;
-            response.filter(function(element){
-                if(element["name"] === local) {
-                    this.setState({local: element["code"]});
-                }
-            });
-            // let URL   = `http://api.openweathermap.org/data/2.5/weather?q=${local}&appid=${key}`;
-
-            console.log(response);
-        }
+        const local = document.getElementById('local').value;
+        const key   = "facec94daf1f7f6e25047395ffdbfa19";
+        const URL   = `http://api.openweathermap.org/data/2.5/weather?q=${local}&appid=${key}`;
+    
+        axios.get(URL)
+             .then(result => {
+                console.log(result);
+             })
+             .catch(error => {
+                alert("해당 국가의 데이터가 없습니다.");
+             });
     }
 
     render(){
+        const { result } = this.state;
+        const resultList = result.map(
+            (data, i) => (
+                <option key = {i} value = {data.code}>{data.name}</option>
+            )
+        );
+
         return(
             <div>
-                <input placeholder = "나라 이름을 입력하세요" onChange = {this.handleChange}/>
+                <select id = "local">
+                    {resultList}
+                </select>
                 <button onClick = {this.resultClick}>Search</button>
             </div>
         )
