@@ -8,11 +8,6 @@ class weather extends Component {
     this.state = { result: [] };
   }
 
-  async componentDidMount() {
-    // let {data : result} = await axios.get(addr);
-    // this.setState({ result });
-  }
-
   render() {
     const { result } = this.state;
 
@@ -27,7 +22,7 @@ class weather extends Component {
         </div>
       )
     } else {
-      return <div>조금만 기다려 주십시오...</div>
+      return <div>검색어를 입력해 주세요.</div>
     }
   }
 }
