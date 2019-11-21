@@ -1,17 +1,11 @@
 import React, { Component } from "react";
 
-
 class weather extends Component {
-  
-  constructor(props) {
-    super(props);
-    this.state = { result: [] };
-  }
 
   render() {
-    const { result } = this.state;
+    const result = this.props.resultObject;
 
-    if(Object.keys(result).length > 0){
+    if(result !== ""){
       return(
         <div>
           <p>나라 : {result.sys.country}</p>
@@ -22,7 +16,7 @@ class weather extends Component {
         </div>
       )
     } else {
-      return <div>검색어를 입력해 주세요.</div>
+      return <div>검색 할 나라를 선택해 주세요.</div>
     }
   }
 }

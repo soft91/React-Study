@@ -10,5 +10,9 @@
     {
         "name" : "일본(Tokyo)" ,
         "code" : "Tokyo" 
+    },
+    {
+        "name" : "미국(워싱턴)",
+        "code" : "Washington"
     }
 ]
