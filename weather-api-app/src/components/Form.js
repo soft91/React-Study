@@ -1,6 +1,7 @@
 import React, {Component} from 'react';
 import axios from 'axios';
-import Weather from './weather';
+import Weather from './Weather';
+import './Form.css';
 
 export default class Form extends Component {
 
@@ -54,10 +55,12 @@ export default class Form extends Component {
 
         return(
             <div>
-                <select id = "local">
-                    {resultList}
-                </select>
-                <button onClick = {this.resultClick}>Search</button>
+                <div className = "searchContainer">
+                    <select id = "local">
+                        {resultList}
+                    </select>
+                    <button onClick = {this.resultClick}>Search</button>
+                </div>
                 <Weather resultObject = {this.state.resultObject}/>
             </div>
         )
