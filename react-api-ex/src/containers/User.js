@@ -3,7 +3,10 @@ import User from '../components/User';
 import * as actions from '../actions/User';
 
 const mapStatetoProps = (state, ownProps) => ({
-    user: ownProps.user
+    user: ownProps.user,
+    category: state.User.category,
+    repos: state.User.repos,
+    error: state.User.error
 });
 
 const mapDispatchToProps = dispatch => ({

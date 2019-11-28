@@ -1,8 +1,8 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import { Provider } from 'react-redux';
-import { ConnectedRouter } from 'react-router-redux';
-import createBrowserHistory from 'history/createBrowserHistory';
+import { ConnectedRouter } from 'connected-react-router';
+import { createBrowserHistory } from 'history';
 import App from './App';
 import createStore from './createStore';
 

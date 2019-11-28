@@ -1,33 +1,41 @@
 import fetchJsonp from 'fetch-jsonp';
+import {replace} from 'react-router-redux';
 
-const API_URL = "http://api.github.com/users/";
+const API_URL = "https://api.github.com/users";
 
-const startRequest = user => ({
+const startRequest = category => ({
     type : 'START_REQUEST',
-    payload: { user }
+    payload: { category }
 });
 
-const receiveData = (user, error, response) => ({
+const receiveData = (category, error, response) => ({
     type: 'RECEIVE_DATA',
-    payload: { user, error, response }
+    payload: { category, error, response }
 })
 
-const finishRequest = user => ({
+const finishRequest = category => ({
     type: 'FINISH_REQUEST',
-    payload: { user }
+    payload: { category }
 })
 
 export const fetchUser = user => {
-    return async dispatch => {
-        dispatch(startRequest(user));
+    return async (dispatch, getState) => {
+        const categories = getState().users.categories;
+        const category = categories.find(category => (category.id === user));
+        if(typeof category === 'undefined'){
+            dispatch(replace('/'));
+            return;
+        }
+
+        dispatch(startRequest(category));
         
         try{
-            const response = await fetchJsonp(`${API_URL}/${user}/reops`);
+            const response = await fetchJsonp(`${API_URL}/${user}/repos`);
             const data = await response.json();
-            dispatch(receiveData(user, null, data));
+            dispatch(receiveData(category, null, data));
         }catch(err){
-            dispatch(receiveData(user, err));
+            dispatch(receiveData(category, err));
         }
-        dispatch(finishRequest(user));
+        dispatch(finishRequest(category));
     }
 }
