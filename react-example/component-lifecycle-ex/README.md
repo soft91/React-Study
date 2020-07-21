@@ -4,7 +4,7 @@
 상태 변경   : shouldComponentUpdate -> componentWillUpdate -> render -> componentDidUpdate<br />
 속성 변경   : componentWillReceiveProps -> shouldComponentUpdate -> componentWillUpdate -> render -> componentDidUpdate<br />
 언마운트    : componentWillUnmount
-
+<br />
 1. constructor(props)<br />
 => 맨 처음에 실행될 때 한 번만 호출됨.<br />
 => state 또는 객체 변수를 선언할 때 사용됨.<br />
@@ -23,7 +23,7 @@
 4. componentDidMount()<br />
 => render() 함수로 화면을 그린 이후에 호출되는 함수.<br />
 => 주로 비동기 처리를 할 때 여기서 많이 사용 됨.<br />
-
+<br />
 5. shouldComponentUpdate(nextProps, nextState)<br />
 => 프로퍼티를 변경하거나 setState() 함수를 호출하여 state를 변경할 때 '화면을 새로 출력해야 하는지 판단 함'<br />
 => 화면 변경을 위해서 이 함수를 사용하면 됨.<br />
