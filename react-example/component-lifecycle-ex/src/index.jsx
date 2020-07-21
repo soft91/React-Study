@@ -1,9 +1,9 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import CounterParent from './Counter';
+import LifeCycleExample from './LifeCycleExample';
 
 
 ReactDOM.render(
-    <CounterParent />,
+    <LifeCycleExample />,
     document.getElementById('root')
 );
