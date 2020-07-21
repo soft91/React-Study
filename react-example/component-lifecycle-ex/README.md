@@ -3,7 +3,7 @@
 초기 렌더링 : 기본 속성 설정 -> 기본 상태 설정 -> componentWillMount -> render -> componentDidMount<br />
 상태 변경   : shouldComponentUpdate -> componentWillUpdate -> render -> componentDidUpdate<br />
 속성 변경   : componentWillReceiveProps -> shouldComponentUpdate -> componentWillUpdate -> render -> componentDidUpdate<br />
-언마운트    : componentWillUnmount
+언마운트    : componentWillUnmount<br />
 <br />
 1. constructor(props)<br />
 => 맨 처음에 실행될 때 한 번만 호출됨.<br />
