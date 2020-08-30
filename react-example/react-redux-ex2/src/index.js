@@ -1,8 +1,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import './index.css';
-import App from './App';
-import ReduxApp from './components/ReduxApp01';
+import ReduxApp from './components/ReduxApp';
 import * as serviceWorker from './serviceWorker';
 
 ReactDOM.render(
