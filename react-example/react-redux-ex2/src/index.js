@@ -1,12 +1,12 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import './index.css';
-import ReduxApp from './components/ReduxApp';
+import AdvReduxApp from './components/AdvReduxApp';
 import * as serviceWorker from './serviceWorker';
 
 ReactDOM.render(
   <React.StrictMode>
-    <ReduxApp />
+    <AdvReduxApp />
   </React.StrictMode>,
   document.getElementById('root')
 );
