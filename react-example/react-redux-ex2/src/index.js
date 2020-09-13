@@ -1,12 +1,12 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import './index.css';
-import ConnectAdvReduxApp from './components/ConnectAdvReduxApp';
+import SearchFilterReduxApp from './components/SearchFilterReduxApp';
 import * as serviceWorker from './serviceWorker';
 
 ReactDOM.render(
   <React.StrictMode>
-    <ConnectAdvReduxApp />
+    <SearchFilterReduxApp />
   </React.StrictMode>,
   document.getElementById('root')
 );
