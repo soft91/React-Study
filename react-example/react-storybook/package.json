@@ -36,6 +36,7 @@
     "@storybook/addon-actions": "^5.3.19",
     "@storybook/addons": "^5.3.19",
     "@storybook/react": "^5.3.19",
+    "sass-loader": "^9.0.3",
     "storybook-addon-jsx": "^7.3.3"
   }
 }
