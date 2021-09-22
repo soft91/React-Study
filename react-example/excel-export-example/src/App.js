@@ -1,10 +1,10 @@
-import React from 'react';
-import './sass/materialize.scss';
+import ExcelEx from '../src/components/ExcelEx';
+import './App.css';
 
 function App() {
   return (
     <div className="App">
-      
+      <ExcelEx />
     </div>
   );
 }
