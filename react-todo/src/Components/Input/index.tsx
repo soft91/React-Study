@@ -12,13 +12,15 @@ const InputBox = styled.input`
 
 interface Props {
   readonly placeholder?: string;
+  readonly value?: string;
   readonly onChange?: (text: string) => void;
 }
 
-export const Input = ({ placeholder, onChange }: Props) => {
+export const Input = ({ placeholder, value, onChange }: Props) => {
   return (
     <InputBox 
       placeholder={placeholder}
+      value={value}
       onChange={(e) => {
         if(typeof onChange === 'function') {
           onChange(e.target.value);

@@ -1,6 +1,6 @@
-import React from "react";
+import React, { useState } from "react";
 import styled from "styled-components";
-import { Button, Input } from "Components";
+import { Button, Input, ToDoItem } from "Components";
 
 const Container = styled.div`
   min-height: 100vh;
@@ -23,18 +23,56 @@ const InputContainer = styled.div`
   display: flex;
 `;
 
+const ToDoListContainer = styled.div`
+  min-width: 350px;
+  height: 400px;
+  overflow-y: scroll;
+  border: 1px solid #BDBDBD;
+  margin-bottom: 20px;
+`;
+
 function App() {
+  const [toDo, setTodo] = useState('');
+  const [toDoList, setToDoList] = useState<string[]>([]);
+
+  const addToDo = (): void => {
+    if(toDo) {
+      setToDoList([...toDoList, toDo]);
+      setTodo('');
+    }
+  }
+
+  const deleteToDo = (index: number): void => {
+    let list = [...toDoList];
+    list.splice(index, 1);
+    setToDoList(list);
+  }
+
   return (
     <Container>
       <Contents>
+        <ToDoItem 
+          label="해야할 일"
+          onDelete={() => alert('삭제')}
+        />
+        <ToDoListContainer>
+          {toDoList.map((item, index) => 
+            <ToDoItem
+              key={item}
+              label={item}
+              onDelete={() =>  deleteToDo(index)}
+            />
+          )}
+        </ToDoListContainer>
         <InputContainer>
           <Input 
             placeholder="할 일을 입력해 주세요"
-            onChange={(text) => console.log(text)}
+            value={toDo}
+            onChange={(text) => setTodo(text)}
           />
           <Button 
             label="테스트"
-            onClick={() => alert('test')}
+            onClick={addToDo}
           />
         </InputContainer>
       </Contents>
