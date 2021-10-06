@@ -33,7 +33,7 @@ interface Props {
 
 export const Button = ({ 
   label,
-  backgroundColor = '#304FFe',
+  backgroundColor = '#304FFE',
   hoverColor = '#1E40FF',
   onClick
 }: Props) => {
