@@ -51,11 +51,7 @@ function App() {
   return (
     <Container>
       <Contents>
-        <ToDoItem 
-          label="해야할 일"
-          onDelete={() => alert('삭제')}
-        />
-        <ToDoListContainer>
+        <ToDoListContainer data-testid="toDoList">
           {toDoList.map((item, index) => 
             <ToDoItem
               key={item}
@@ -71,7 +67,7 @@ function App() {
             onChange={(text) => setTodo(text)}
           />
           <Button 
-            label="테스트"
+            label="추가"
             onClick={addToDo}
           />
         </InputContainer>
