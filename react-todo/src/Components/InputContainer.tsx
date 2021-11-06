@@ -1,34 +1,32 @@
-import React from "react";
+import React,{ useContext, useState } from "react";
 import styled from "styled-components";
 
 import { Button } from "Components/Button";
 import { Input } from "Components/Input";
 
+import { ToDoListContext } from "Contexts/ToDoList";
+
 const Container = styled.div`
   display: flex;
 `;
 
-interface Props {
-  readonly toDo?: string;
-  readonly onChange?: (text: string) => void;
-  readonly onAdd?: () => void;
-}
+export const InputContainer = () => {
+  const [toDo, setToDo] = useState('');
+  const { addToDo } = useContext(ToDoListContext);
 
-export const InputContainer = ({
-  toDo,
-  onChange,
-  onAdd
-}: Props) => {
   return (
     <Container>
       <Input 
         placeholder="할 일을 입력해주세요."
         value={toDo}
-        onChange={onChange}
+        onChange={setToDo}
       />
       <Button 
         label="추가"
-        onClick={onAdd}
+        onClick={() => {
+          addToDo(toDo);
+          setToDo('')
+        }}
       />
     </Container>
   )

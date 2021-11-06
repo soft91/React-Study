@@ -4,6 +4,7 @@ import {
   ToDoList,
   InputContainer 
 } from "Components";
+import { ToDoListProvider } from "Contexts/ToDoList";
 
 const Container = styled.div`
   min-height: 100vh;
@@ -23,32 +24,15 @@ const Contents = styled.div`
 `;
 
 function App() {
-  const [toDo, setTodo] = useState('');
-  const [toDoList, setToDoList] = useState<string[]>([]);
-
-  const addToDo = (): void => {
-    if(toDo) {
-      setToDoList([...toDoList, toDo]);
-      setTodo('');
-    }
-  }
-
-  const deleteToDo = (index: number): void => {
-    let list = [...toDoList];
-    list.splice(index, 1);
-    setToDoList(list);
-  }
-
   return (
-    <Container>
-      <Contents>
-        <ToDoList toDoList={toDoList} deleteToDo={deleteToDo}></ToDoList>
-        <InputContainer
-          toDo={toDo}
-          onChange={(text) => setTodo(text)}
-          onAdd={addToDo}/>
-      </Contents>
-    </Container>
+    <ToDoListProvider>
+      <Container>
+        <Contents>
+          <ToDoList />
+          <InputContainer />
+        </Contents>
+      </Container>
+    </ToDoListProvider>
   )
 }
 
