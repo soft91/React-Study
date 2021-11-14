@@ -12,8 +12,6 @@ describe('<App />', () => {
     expect(toDoList).toBeInTheDocument();
     expect(toDoList.firstChild).toBeNull();
 
-    const input = screen.getByPlaceholderText('할 일을 입력해 주세요');
-    expect(input).toBeInTheDocument();
     const label = screen.getByText('추가');
     expect(label).toBeInTheDocument();
 
@@ -23,9 +21,7 @@ describe('<App />', () => {
   it('adds and deletes Todo Items', () => {
     render(<App />);
 
-    const input = screen.getByPlaceholderText('할 일을 입력해 주세요');
     const button = screen.getByText('추가');
-    fireEvent.change(input, { target: { value: 'study react 1' } });
     fireEvent.click(button);
 
     const todoItem = screen.getByText('study react 1');
@@ -37,7 +33,6 @@ describe('<App />', () => {
     const toDoList = screen.getByTestId('toDoList');
     expect(toDoList.childElementCount).toBe(1);
 
-    fireEvent.change(input, { target: { value: 'study react 2'} });
     fireEvent.click(button);
 
     const todoItem2 = screen.getByText('study react 2');

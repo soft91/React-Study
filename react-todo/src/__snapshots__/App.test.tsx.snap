@@ -33,6 +33,21 @@ exports[`<App /> renders component correctly 1`] = `
   outline: none;
 }
 
+.c3 {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+}
+
+.c2 {
+  min-width: 350px;
+  height: 400px;
+  overflow-y: scroll;
+  border: 1px solid #BDBDBD;
+  margin-bottom: 20px;
+}
+
 .c0 {
   min-height: 100vh;
   display: -webkit-box;
@@ -66,21 +81,6 @@ exports[`<App /> renders component correctly 1`] = `
   box-shadow: 5px 5px 10px rgba(0,0,0,0.2);
 }
 
-.c3 {
-  display: -webkit-box;
-  display: -webkit-flex;
-  display: -ms-flexbox;
-  display: flex;
-}
-
-.c2 {
-  min-width: 350px;
-  height: 400px;
-  overflow-y: scroll;
-  border: 1px solid #BDBDBD;
-  margin-bottom: 20px;
-}
-
 <div>
   <div
     class="c0"
@@ -97,7 +97,7 @@ exports[`<App /> renders component correctly 1`] = `
       >
         <input
           class="c4"
-          placeholder="할 일을 입력해 주세요"
+          placeholder="할 일을 입력해 주세요."
           value=""
         />
         <div
