@@ -10,7 +10,13 @@ const Container = styled.div`
   display: flex;
 `;
 
-export const InputContainer = () => {
+interface Props {
+  readonly onAdd?: () => void;
+}
+
+export const InputContainer = ({
+  onAdd
+}: Props) => {
   const [toDo, setToDo] = useState('');
   const { addToDo } = useContext(ToDoListContext);
 
@@ -25,7 +31,10 @@ export const InputContainer = () => {
         label="추가"
         onClick={() => {
           addToDo(toDo);
-          setToDo('')
+          setToDo('');
+          if(toDo && typeof onAdd === 'function') {
+            onAdd();
+          }
         }}
       />
     </Container>
