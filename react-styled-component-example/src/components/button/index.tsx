@@ -5,9 +5,13 @@ interface IProps {
   size?: string;
   color?: string;
   children: string;
+  fontColor?: string;
+  style?: React.CSSProperties;
+  disabled?: boolean;
+  onClick?: React.MouseEventHandler<HTMLButtonElement>;
 }
 
-const Container = styled.div<IProps>`
+const Container = styled.button<IProps>`
   display: flex;
   width: 100px;
   height: 40px;
@@ -16,6 +20,8 @@ const Container = styled.div<IProps>`
   border-radius: 5px;
   align-items: center;
   justify-content: center;
+  color: ${(props) => props.fontColor || "black"};
+  cursor: ${(props) => (props.disabled ? "default" : "pointer")};
 `;
 
 const selectColor = (color?: string) => {
@@ -26,14 +32,31 @@ const selectColor = (color?: string) => {
       return "#C2CF04";
     case "error":
       return "#F65900";
+    case "disabled":
+      return "#d2d2d2";
     default:
       return "#dddddd";
   }
 };
 
-const Button = ({ size, color, children }: IProps) => {
+const Button = ({
+  size,
+  color,
+  children,
+  fontColor,
+  style,
+  disabled,
+  onClick,
+}: IProps) => {
   return (
-    <Container size={size} color={color}>
+    <Container
+      size={size}
+      color={disabled ? "disabled" : color}
+      fontColor={disabled ? "gray" : fontColor}
+      style={style}
+      disabled={disabled}
+      onClick={onClick}
+    >
       {children}
     </Container>
   );
