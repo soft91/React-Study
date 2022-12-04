@@ -1,28 +1,19 @@
-import React from "react";
+import React, { useState } from "react";
 import "./App.css";
-import { Button } from "./components";
+import { TextField } from "./components";
 
 function App() {
-  const testAlert = () => {
-    alert("test");
-  };
+  const [state, setState] = useState<string>("");
 
   return (
     <div className="App">
-      <Button
-        color="success"
-        fontColor="white"
-        style={{ width: "400px" }}
-        onClick={testAlert}
-      >
-        Small
-      </Button>
-      <Button color="error" fontColor="blue" disabled={true}>
-        DISABLED
-      </Button>
-      <Button color="warning" fontColor="green" onClick={testAlert}>
-        Large
-      </Button>
+      <TextField
+        value={state}
+        setValue={setState}
+        placeholder="입력해주세요"
+        size="large"
+      />
+      <span>{state}</span>
     </div>
   );
 }

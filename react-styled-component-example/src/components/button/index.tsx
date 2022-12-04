@@ -13,8 +13,8 @@ interface IProps {
 
 const Container = styled.button<IProps>`
   display: flex;
-  width: 100px;
-  height: 40px;
+  width: ${(props) => selectSize(props.size).width};
+  height: ${(props) => selectSize(props.size).height};
   background-color: ${(props) => selectColor(props.color)};
   border: 0;
   border-radius: 5px;
@@ -23,6 +23,26 @@ const Container = styled.button<IProps>`
   color: ${(props) => props.fontColor || "black"};
   cursor: ${(props) => (props.disabled ? "default" : "pointer")};
 `;
+
+const selectSize = (size?: string) => {
+  switch (size) {
+    case "large":
+      return {
+        height: "80px",
+        width: "150px",
+      };
+    case "small":
+      return {
+        height: "20px",
+        width: "50px",
+      };
+    default:
+      return {
+        height: "40px",
+        width: "100px",
+      };
+  }
+};
 
 const selectColor = (color?: string) => {
   switch (color) {
@@ -63,3 +83,22 @@ const Button = ({
 };
 
 export default Button;
+
+{
+  /* <div className="App">
+<Button
+  color="success"
+  fontColor="white"
+  style={{ width: "400px" }}
+  onClick={testAlert}
+>
+  Small
+</Button>
+<Button color="error" fontColor="blue" disabled={true}>
+  DISABLED
+</Button>
+<Button color="warning" fontColor="green" onClick={testAlert}>
+  Large
+</Button>
+</div> */
+}
