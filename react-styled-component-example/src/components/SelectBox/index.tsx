@@ -5,10 +5,14 @@ import React, {
   useCallback,
   useState,
   useEffect,
+  MouseEvent,
+  useRef,
+  useMemo,
 } from "react";
 import styled from "styled-components";
 
 interface IProps {
+  value?: string;
   list?: any; // 실제 리스트를 만들 배열
   placeholder?: string;
   isSearchable?: boolean;
@@ -44,13 +48,6 @@ const DropdownSearchInput = styled.input`
   outline: none;
 `;
 
-const DropdownReset = styled.div`
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  width: 1rem;
-`;
-
 const DropdownList = styled.div<{ show: boolean }>`
   display: ${(props) => (props.show ? "flex" : "none")};
   position: absolute;
@@ -64,7 +61,7 @@ const DropdownList = styled.div<{ show: boolean }>`
   padding: 5px;
 `;
 
-const DropdownButton = styled.div`
+const DropdownButton = styled.button`
   display: flex;
   justify-content: center;
   align-items: center;
@@ -96,21 +93,24 @@ let dummyData = [
   { key: "test7", value: "yoon" },
   { key: "test8", value: "yoon" },
   { key: "test9", value: "yoon" },
-  { key: "test10", value: "yoon" },
-  { key: "test11", value: "yoon" },
-  { key: "test12", value: "yoon" },
-  { key: "test13", value: "yoon" },
-  { key: "test14", value: "yoon" },
-  { key: "test15", value: "yoon" },
 ];
 
-const SelectBox = ({ placeholder, isSearchable, setValue }: IProps) => {
+const SelectBox = ({
+  value,
+  placeholder,
+  isSearchable = false,
+  setValue,
+}: IProps) => {
   const [open, setOpen] = useState<boolean>(false);
   const [selected, setSelected] = useState<string>("");
+
+  const inputRef = useRef<HTMLInputElement | null>(null);
+  const divRef = useRef<HTMLDivElement | null>(null);
 
   const onChangeHandler = useCallback(
     (e: ChangeEvent<HTMLInputElement>) => {
       setSelected(e.target.value);
+      setValue("");
     },
     [setSelected]
   );
@@ -118,19 +118,37 @@ const SelectBox = ({ placeholder, isSearchable, setValue }: IProps) => {
   const selectedItem = useCallback(
     (item: string) => {
       setValue(item);
-      setSelected(item);
+      setSelected("");
       setOpen((prev) => !prev);
     },
     [setValue, setOpen, setSelected]
   );
 
-  const toggle = (e) => {
-    setIsOpen(e && e.target === inputRef.current);
-  };
+  const getDisplayValue = useMemo(() => {
+    if (selected) return selected;
+    if (value) return value;
+
+    return "";
+  }, [selected, value]);
+
+  const toggle = useCallback(
+    (e: MouseEvent<HTMLInputElement>) => {
+      setOpen(
+        e && e.target === (isSearchable ? inputRef.current : divRef.current)
+      );
+    },
+    [isSearchable]
+  );
+
+  const listFilter = useMemo(() => {
+    return dummyData.filter(
+      (item) => item.value.toLowerCase().indexOf(selected.toLowerCase()) > -1
+    );
+  }, [selected]);
 
   useEffect(() => {
-    document.addEventListener("click", toggle);
-    return () => document.removeEventListener("click", toggle);
+    document.addEventListener("click", (e: any) => toggle(e));
+    return () => document.removeEventListener("click", (e: any) => toggle(e));
   }, []);
 
   return (
@@ -139,35 +157,31 @@ const SelectBox = ({ placeholder, isSearchable, setValue }: IProps) => {
         {isSearchable ? (
           <>
             <DropdownSearchInput
-              value={selected}
+              ref={inputRef}
+              value={getDisplayValue}
               placeholder={placeholder || "Search..."}
               onClick={toggle}
               onChange={onChangeHandler}
             />
-            <DropdownReset onClick={() => setSelected("")}>X</DropdownReset>
           </>
         ) : (
-          <Dropdown>{selected}</Dropdown>
+          <Dropdown ref={divRef}>{getDisplayValue}</Dropdown>
         )}
-        <DropdownButton onClick={() => setOpen((prev) => !prev)}>
+        <DropdownButton
+          onClick={(e) => {
+            e.stopPropagation();
+            setOpen((prev) => !prev);
+          }}
+        >
           선택
         </DropdownButton>
       </DropDownContainer>
       <DropdownList show={open}>
-        {dummyData
-          .filter((item) => {
-            return (
-              item.value.toLowerCase().indexOf(selected.toLowerCase()) > -1
-            );
-          })
-          .map((item) => (
-            <DropdownItem
-              key={item.key}
-              onClick={() => selectedItem(item.value)}
-            >
-              {item.value}
-            </DropdownItem>
-          ))}
+        {listFilter.map((item) => (
+          <DropdownItem key={item.key} onClick={() => selectedItem(item.value)}>
+            {item.value}
+          </DropdownItem>
+        ))}
       </DropdownList>
     </Container>
   );
