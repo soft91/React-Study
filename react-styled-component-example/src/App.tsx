@@ -1,19 +1,16 @@
 import React, { useState } from "react";
 import "./App.css";
-import { TextField } from "./components";
+import { Modal } from "./components";
 
 function App() {
-  const [state, setState] = useState<string>("");
+  const [state, setState] = useState<boolean>(false);
 
   return (
     <div className="App">
-      <TextField
-        value={state}
-        setValue={setState}
-        placeholder="입력해주세요"
-        size="large"
-      />
-      <span>{state}</span>
+      <Modal open={state} setOpen={setState}>
+        <span>test</span>
+      </Modal>
+      <button onClick={() => setState((prev) => !prev)}>click</button>
     </div>
   );
 }
