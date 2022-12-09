@@ -78,7 +78,6 @@ const TextField = ({
         placeholder={placeholder}
         disabled={disabled}
         onChange={(e) => onChangehandler(e)}
-        size={size}
       />
     </Container>
   );
