@@ -1,6 +1,5 @@
 import React from "react";
 import { useRecoilState, useRecoilValue } from "recoil";
-import { textState } from "../recoil/Counter/atom";
 import { charCountState } from "../recoil/Counter/selector";
 
 const CharacterCounter = () => {
@@ -13,24 +12,29 @@ const CharacterCounter = () => {
 };
 
 const TextInput = () => {
-  const [text, setText] = useRecoilState(textState);
+  const [newText, setNewText] = useRecoilState(charCountState);
 
   const onChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    setText(event.target.value);
+    setNewText(event.target.value);
   };
 
   return (
     <div>
-      <input type="text" value={text} onChange={onChange} />
+      <input type="text" value={newText} onChange={onChange} />
       <br />
-      Echo: {text}
+      Echo2: {newText}
     </div>
   );
 };
 
 const CharacterCount = () => {
   const count = useRecoilValue(charCountState);
-  return <>Character Count: {count}</>;
+
+  return (
+    <>
+      <span>Character Count: {count.length}</span>
+    </>
+  );
 };
 
 export default CharacterCounter;

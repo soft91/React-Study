@@ -5,6 +5,9 @@ export const charCountState = selector({
   key: "charCountState",
   get: ({ get }) => {
     const text = get(textState);
-    return text.length;
+    return text;
+  },
+  set: ({ set }, newValue) => {
+    set(textState, newValue);
   },
 });
