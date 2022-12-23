@@ -1,6 +1,7 @@
+import { usePagination } from "../../hooks/usePagination";
+
 interface IPagination {
-	total: number;
-	currentPage: number;
+	pagination: ReturnType<typeof usePagination>;
 }
 
 export type { IPagination };

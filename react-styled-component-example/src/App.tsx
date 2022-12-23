@@ -1,41 +1,67 @@
-import React, { useState, useMemo } from "react";
-import "./App.css";
-import { Table } from "./components";
+import { useCallback, useEffect, useState, useMemo } from "react";
+import { Table, Layout } from "./components";
 import { usePagination } from "./hooks/usePagination";
 import { ColumnStructure } from "./components/Table/types";
 
-function App() {
-	const [data, setData] = useState<boolean>(false);
+interface ITodo {
+	id: number;
+	todo: string;
+	completed: boolean;
+	userId: number;
+}
+
+export default function Home() {
+	const [data, setData] = useState<ITodo[]>([]);
 	const pagination = usePagination();
-	const column: ColumnStructure<any>[] = useMemo(
+	const { cntPage, page } = pagination;
+
+	const column: ColumnStructure<ITodo>[] = useMemo(
 		() => [
 			{
 				width: 1,
-				field: "pharmName",
-				headerName: "약국명",
-				RenderComponent: (item, field) => <>{"안녕1"}</>,
+				field: "id",
+				headerName: "ID",
+				RenderComponent: (item, field, index) => <>{item[field]}</>,
 			},
 			{
 				width: 1,
-				field: "name",
-				headerName: "이름",
-				RenderComponent: (item, field) => <>{"안녕2"}</>,
+				field: "todo",
+				headerName: "할 일",
+				RenderComponent: (item, field) => <>{item[field]}</>,
 			},
 			{
 				width: 1,
-				field: "visit",
-				headerName: "방문횟수",
-				RenderComponent: (item, field) => <>{"안녕3"}</>,
+				field: "completed",
+				headerName: "완료여부",
+				RenderComponent: (item, field) => <>{item ? "완료" : "미완"}</>,
+			},
+			{
+				width: 1,
+				field: "userId",
+				headerName: "아이디",
+				RenderComponent: (item, field) => <>{item[field]}</>,
 			},
 		],
 		[pagination]
 	);
 
+	const getData = useCallback(async () => {
+		await fetch(`https://dummyjson.com/todos?limit=${cntPage}&skip=${1}`)
+			.then((res) => res.json())
+			.then((data) => {
+				pagination.setPagination(data.limit, data.total, page);
+				console.log("t est");
+				setData(data.todos);
+			})
+			.catch((e) => console.log(e));
+	}, [page, cntPage]);
+
+	useEffect(() => {
+		getData();
+	}, [cntPage]);
 	return (
-		<div className="App">
-			<Table data={data} columns={column} pagination={pagination} />
-		</div>
+		<Layout>
+			<Table<ITodo> columns={column} data={data} pagination={pagination} />
+		</Layout>
 	);
 }
-
-export default App;

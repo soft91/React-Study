@@ -10,6 +10,7 @@ export const usePagination = () => {
 		totalCount: number,
 		page: number
 	) => {
+		console.log(page);
 		setCntPage(cntPage);
 		setTotalCount(totalCount);
 		setPage(page);
