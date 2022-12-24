@@ -56,7 +56,7 @@ const Pagination = ({ pagination }: IPagination) => {
 			pagination.totalCount,
 			pagination.page - 1
 		);
-	}, [pagination.setPagination]);
+	}, [pagination]);
 
 	const goNextPage = useCallback(() => {
 		pagination.setPagination(
@@ -64,10 +64,11 @@ const Pagination = ({ pagination }: IPagination) => {
 			pagination.cntPage,
 			(pagination.page += 10)
 		);
+		console.log("test2");
 		return pagination.cntPage + 5 > maxPage
 			? maxPage
 			: (pagination.cntPage += 10);
-	}, [maxPage, pagination.setPagination]);
+	}, [maxPage, pagination]);
 
 	return (
 		<Container>

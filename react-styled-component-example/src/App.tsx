@@ -42,7 +42,7 @@ export default function Home() {
 				RenderComponent: (item, field) => <>{item[field]}</>,
 			},
 		],
-		[pagination]
+		[]
 	);
 
 	const getData = useCallback(async () => {
@@ -50,11 +50,10 @@ export default function Home() {
 			.then((res) => res.json())
 			.then((data) => {
 				pagination.setPagination(data.limit, data.total, page);
-				console.log("t est");
 				setData(data.todos);
 			})
 			.catch((e) => console.log(e));
-	}, [page, cntPage]);
+	}, [cntPage, page, pagination]);
 
 	useEffect(() => {
 		getData();
