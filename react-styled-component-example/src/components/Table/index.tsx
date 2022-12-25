@@ -4,13 +4,16 @@ import Pagination from "../Pagination";
 import { IProps } from "./types";
 
 const Container = styled.div`
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+`;
+
+const TableContainer = styled.div`
 	display: grid;
 	font-size: 1.2em;
 	grid-gap: 0;
 	margin: 20px;
-`;
-
-const TableContainer = styled.div`
 	border-top: 2px solid #aaa;
 	border-left: 2px solid #aaa;
 

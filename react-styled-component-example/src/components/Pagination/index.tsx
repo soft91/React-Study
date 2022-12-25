@@ -64,7 +64,6 @@ const Pagination = ({ pagination }: IPagination) => {
 			pagination.cntPage,
 			(pagination.page += 10)
 		);
-		console.log("test2");
 		return pagination.cntPage + 5 > maxPage
 			? maxPage
 			: (pagination.cntPage += 10);
