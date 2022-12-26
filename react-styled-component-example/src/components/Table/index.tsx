@@ -7,38 +7,33 @@ const Container = styled.div`
 	display: flex;
 	flex-direction: column;
 	align-items: center;
+	margin: 10px;
 `;
 
 const TableContainer = styled.div`
 	display: grid;
 	font-size: 1.2em;
-	grid-gap: 0;
-	margin: 20px;
-	border-top: 2px solid #aaa;
-	border-left: 2px solid #aaa;
-
-	div {
-		border-right: 2px solid #aaa;
-		border-bottom: 2px solid #aaa;
-	}
+	height: 100%;
+	border-top: 1px solid #aaa;
+	border-left: 1px solid #aaa;
 `;
 
-const Column = styled.div<{ cols: number }>`
+const TableHeader = styled.div`
+	display: grid;
+	align-items: center;
+	font-weight: bold;
+`;
+
+const TableBody = styled.div``;
+
+const Column = styled.div<{ cols?: number }>`
 	display: grid;
 	grid-template-columns: ${(props) => `repeat(${props.cols}, 1fr)`};
 `;
 
-const Header = styled.div<{ size: number }>`
-	display: grid;
-	justify-items: center;
-	align-items: center;
-	font-weight: bold;
-	height: 5rem;
-`;
-
 const Row = styled.div<{ rows?: number }>`
 	display: grid;
-	grid-template-rows: ${(props) => `repeat(${props.rows}, 1fr)`};
+	grid-template-columns: ${(props) => `repeat(${props.rows}, 1fr)`};
 `;
 
 const Items = styled.div`
@@ -46,7 +41,12 @@ const Items = styled.div`
 	justify-items: center;
 	align-items: center;
 	font-weight: bold;
+	padding: 0px 10px;
+	text-overflow: ellipsis;
+	overflow: hidden;
 	height: 3rem;
+	border-right: 1px solid #aaa;
+	border-bottom: 1px solid #aaa;
 `;
 
 const Table: <P>(
@@ -55,28 +55,32 @@ const Table: <P>(
 	return (
 		<Container>
 			<TableContainer>
-				<Column cols={columns.length}>
-					{columns.map((item) => (
-						<Header
-							size={item.width}
-							key={`${String(item.field)}_${item.headerName}_title`}
-							//onClick={sort}
-						>
-							{item.headerName}
-						</Header>
-					))}
-				</Column>
-				<Row>
-					<Column cols={columns.length}>
-						{data.map((item: any) => {
-							return Object.values(item).map((value: any, index) => (
-								<Items key={index}>{value}</Items>
-							));
-						})}
-					</Column>
-				</Row>
+				<TableHeader>
+					<Row>
+						<Column cols={columns.length}>
+							{columns.map((item, index) => (
+								<Items key={index}>{item.headerName}</Items>
+							))}
+						</Column>
+					</Row>
+				</TableHeader>
+				<TableBody>
+					{data.map((item: any, index) => {
+						return (
+							<Row key={index}>
+								<Column cols={columns.length}>
+									{Object.values(item).map((value: any, index) => (
+										<Items key={index}>
+											<span>{value}</span>
+										</Items>
+									))}
+								</Column>
+							</Row>
+						);
+					})}
+				</TableBody>
 			</TableContainer>
-			<Pagination pagination={pagination} />
+			{data.length >= 10 && <Pagination pagination={pagination} />}
 		</Container>
 	);
 };

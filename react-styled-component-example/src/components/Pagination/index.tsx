@@ -1,7 +1,6 @@
 import styled from "styled-components";
 import { IPagination } from "./types";
-import { usePagination } from "../../hooks/usePagination";
-import { useCallback } from "react";
+import { useState, useCallback } from "react";
 
 const Container = styled.div`
 	display: flex;
@@ -43,56 +42,49 @@ const Page = styled.button<{ selected: boolean }>`
 `;
 
 const Pagination = ({ pagination }: IPagination) => {
-	const maxPage = Math.ceil(pagination.totalCount / 10);
+	const [page, setPage] = useState<number>(1);
+	const { cntPage, setPagination, totalCount } = pagination;
+
+	const maxPage = Math.ceil(totalCount / cntPage);
+
 	let pageNumbers = [];
 
-	for (let i = pagination.page; i < pagination.page + 5 && i <= maxPage; i++) {
+	for (let i = page; i < page + 5 && i <= maxPage; i++) {
 		pageNumbers.push(i);
 	}
 
+	const selectPageNum = useCallback((value: number) => {
+		setPagination(cntPage, totalCount, value);
+	}, []);
+
 	const goPrevPage = useCallback(() => {
-		pagination.setPagination(
-			pagination.cntPage,
-			pagination.totalCount,
-			pagination.page - 1
-		);
-	}, [pagination]);
+		setPagination(cntPage, totalCount, page - 5);
+		setPage((prev) => (prev -= 5));
+	}, [page]);
 
 	const goNextPage = useCallback(() => {
-		pagination.setPagination(
-			pagination.cntPage,
-			pagination.cntPage,
-			(pagination.page += 10)
-		);
-		return pagination.cntPage + 5 > maxPage
-			? maxPage
-			: (pagination.cntPage += 10);
-	}, [maxPage, pagination]);
+		setPagination(cntPage, totalCount, page + 5);
+		setPage((prev) => (prev += 5));
+	}, [page]);
 
 	return (
 		<Container>
-			<Button disabled={pagination.page === 1} onClick={goPrevPage}>
+			<Button disabled={page - 5 < 1} onClick={goPrevPage}>
 				이전
 			</Button>
 			<PageWrapper>
-				{pageNumbers.map((value, i) => (
+				{pageNumbers.map((value) => (
 					<Page
 						key={value}
 						selected={value === pagination.page}
-						onClick={() => {
-							pagination.setPagination(
-								(pagination.cntPage += 10),
-								pagination.totalCount,
-								value
-							);
-						}}
+						onClick={() => selectPageNum(value)}
 						disabled={value === pagination.page}
 					>
 						{value}
 					</Page>
 				))}
 			</PageWrapper>
-			<Button disabled={pagination.page === maxPage} onClick={goNextPage}>
+			<Button disabled={page + 5 > maxPage} onClick={goNextPage}>
 				다음
 			</Button>
 		</Container>

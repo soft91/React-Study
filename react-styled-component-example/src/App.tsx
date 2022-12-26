@@ -46,18 +46,19 @@ export default function Home() {
 	);
 
 	const getData = useCallback(async () => {
-		await fetch(`https://dummyjson.com/todos?limit=${cntPage}&skip=${1}`)
+		await fetch(`https://dummyjson.com/todos?limit=${cntPage}&skip=${page}`)
 			.then((res) => res.json())
 			.then((data) => {
-				pagination.setPagination(data.limit, data.total, page);
 				setData(data.todos);
+				pagination.setPagination(data.limit, data.total, pagination.page);
 			})
 			.catch((e) => console.log(e));
-	}, [cntPage, page, pagination]);
+	}, [page, cntPage]);
 
 	useEffect(() => {
 		getData();
-	}, [cntPage]);
+	}, [page]);
+
 	return (
 		<Layout>
 			<Table<ITodo> columns={column} data={data} pagination={pagination} />
