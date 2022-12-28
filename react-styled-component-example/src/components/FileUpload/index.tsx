@@ -1,26 +1,6 @@
-import React, {
-	ChangeEvent,
-	useCallback,
-	useRef,
-	useState,
-	useEffect,
-	Dispatch,
-	SetStateAction,
-} from "react";
+import { ChangeEvent, useCallback, useRef, useState, useEffect } from "react";
 import styled from "styled-components";
-
-interface IProps {
-	className?: string;
-	value: IFileTypes[];
-	setValue: Dispatch<SetStateAction<IFileTypes[]>>;
-	drag: boolean;
-	multiple: boolean;
-}
-
-interface IFileTypes {
-	id: number;
-	file: File;
-}
+import { IProps, IFileTypes } from "./types";
 
 const Container = styled.div`
 	display: flex;

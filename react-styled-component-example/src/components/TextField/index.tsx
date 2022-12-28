@@ -1,15 +1,5 @@
-import React, { ChangeEvent } from "react";
+import { IProps } from "./types";
 import styled from "styled-components";
-
-interface IProps {
-	id?: string;
-	name?: string;
-	value: string;
-	setValue: (e: ChangeEvent<HTMLInputElement>) => void;
-	placeholder?: string;
-	disabled?: boolean;
-	size?: string;
-}
 
 const Container = styled.div<{ size?: string }>`
 	display: flex;
