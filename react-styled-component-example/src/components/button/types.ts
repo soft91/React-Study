@@ -1,7 +1,7 @@
 interface IProps {
 	size?: string;
 	color?: string;
-	children: string;
+	children: string | JSX.Element;
 	fontColor?: string;
 	style?: React.CSSProperties;
 	disabled?: boolean;

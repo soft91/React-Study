@@ -1,6 +1,7 @@
 import React from "react";
 import styled from "styled-components";
 import { IProps } from "./types";
+import Typography from "../Typography";
 
 const Container = styled.button<IProps>`
 	display: flex;
@@ -68,28 +69,9 @@ const Button = ({
 			disabled={disabled}
 			onClick={onClick}
 		>
-			{children}
+			<Typography>{children}</Typography>
 		</Container>
 	);
 };
 
 export default Button;
-
-{
-	/* <div className="App">
-<Button
-  color="success"
-  fontColor="white"
-  style={{ width: "400px" }}
-  onClick={testAlert}
->
-  Small
-</Button>
-<Button color="error" fontColor="blue" disabled={true}>
-  DISABLED
-</Button>
-<Button color="warning" fontColor="green" onClick={testAlert}>
-  Large
-</Button>
-</div> */
-}
