@@ -12,7 +12,7 @@ const Container = styled.button<IProps>`
 	border-radius: 5px;
 	align-items: center;
 	justify-content: center;
-	color: ${(props) => props.fontColor || "black"};
+	color: ${(props) => props.fontColor && "black"};
 	cursor: ${(props) => (props.disabled ? "default" : "pointer")};
 `;
 
@@ -64,7 +64,7 @@ const Button = ({
 		<Container
 			size={size}
 			color={disabled ? "disabled" : color}
-			fontColor={disabled ? "gray" : fontColor}
+			fontColor={fontColor}
 			style={style}
 			disabled={disabled}
 			onClick={onClick}

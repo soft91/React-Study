@@ -3,7 +3,7 @@ import { IProps } from "./types";
 
 const Container = styled.div<IProps>`
 	display: flex;
-	font-size: ${({ size }) => (size ? `${size}rem` : `10rem`)};
+	font-size: ${({ size }) => (size ? `${size}rem` : `1rem`)};
 	color: ${({ color }) => (color ? `${color}` : "black")};
 `;
 
