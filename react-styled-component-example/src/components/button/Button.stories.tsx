@@ -1,14 +1,31 @@
-import React from "react";
-import { storiesOf } from "@storybook/react";
-import { action } from "@storybook/addon-actions";
+import { ComponentMeta, ComponentStory } from "@storybook/react";
 import Button from "./index";
+import { IProps } from "./types";
 
-storiesOf("Button", module)
-	.add("with text", () => <Button>Hello Button</Button>)
-	.add("with emoji", () => (
-		<Button>
-			<span role="img" aria-label="so cool">
-				😀 😎 👍 💯
-			</span>
-		</Button>
-	));
+export default {
+	component: Button,
+	title: "Example/Button",
+} as ComponentMeta<typeof Button>;
+
+const Template: ComponentStory<typeof Button> = (args: IProps) => (
+	<Button {...args} />
+);
+
+export const Default = Template.bind({});
+Default.args = {
+	children: "",
+	color: "",
+	size: "",
+	fontColor: "",
+	disabled: true,
+};
+
+export const Large = Template.bind({});
+Large.args = {
+	size: "large",
+};
+
+export const Small = Template.bind({});
+Large.args = {
+	size: "small",
+};

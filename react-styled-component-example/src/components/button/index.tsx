@@ -3,16 +3,16 @@ import styled from "styled-components";
 import { IProps } from "./types";
 import Typography from "../Typography";
 
-const Container = styled.button<IProps>`
+const Container = styled.div<IProps>`
 	display: flex;
 	width: ${(props) => selectSize(props.size).width};
 	height: ${(props) => selectSize(props.size).height};
-	background-color: ${(props) => selectColor(props.color)};
+	background-color: ${(props) => props.color || "#dddddd"};
 	border: 0;
 	border-radius: 5px;
 	align-items: center;
 	justify-content: center;
-	color: ${(props) => props.fontColor || "black"};
+	color: ${(props) => props.fontColor};
 	cursor: ${(props) => (props.disabled ? "default" : "pointer")};
 `;
 
@@ -36,20 +36,20 @@ const selectSize = (size?: string) => {
 	}
 };
 
-const selectColor = (color?: string) => {
-	switch (color) {
-		case "success":
-			return "#6BBF00";
-		case "warning":
-			return "#C2CF04";
-		case "error":
-			return "#F65900";
-		case "disabled":
-			return "#d2d2d2";
-		default:
-			return "#dddddd";
-	}
-};
+// const selectColor = (color?: string) => {
+// 	switch (color) {
+// 		case "success":
+// 			return "#6BBF00";
+// 		case "warning":
+// 			return "#C2CF04";
+// 		case "error":
+// 			return "#F65900";
+// 		case "disabled":
+// 			return "#d2d2d2";
+// 		default:
+// 			return "#dddddd";
+// 	}
+// };
 
 const Button = ({
 	size,
@@ -57,7 +57,7 @@ const Button = ({
 	children,
 	fontColor,
 	style,
-	disabled,
+	disabled = false,
 	onClick,
 }: IProps) => {
 	return (
@@ -67,9 +67,9 @@ const Button = ({
 			fontColor={disabled ? "gray" : fontColor}
 			style={style}
 			disabled={disabled}
-			onClick={onClick}
+			onClick={() => onClick}
 		>
-			<Typography>{children}</Typography>
+			{children}
 		</Container>
 	);
 };
