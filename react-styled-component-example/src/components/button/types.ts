@@ -6,6 +6,8 @@ interface IProps {
 	style?: React.CSSProperties;
 	disabled?: boolean;
 	onClick?: React.MouseEventHandler<HTMLButtonElement>;
+	theme?: string;
+	className?: string;
 }
 
 export type { IProps };

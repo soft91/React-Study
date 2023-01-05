@@ -4,10 +4,6 @@ import { ComponentMeta, ComponentStory } from "@storybook/react";
 import { IProps } from "./types";
 
 export default {
-	/* 👇 The title prop is optional.
-	 * See https://storybook.js.org/docs/react/configure/overview#configure-story-loading
-	 * to learn how to generate automatic titles
-	 */
 	title: "Button",
 	component: Button,
 } as ComponentMeta<typeof Button>;
@@ -18,20 +14,12 @@ const Template: ComponentStory<typeof Button> = (args: IProps) => (
 );
 
 export const Primary = Template.bind({});
-
 Primary.args = {
 	children: "test",
-	color: "",
 };
 
-export const Success = Template.bind({});
-Success.args = {
+export const Active = Template.bind({});
+Active.args = {
 	children: "test",
-	color: "success",
-};
-
-export const Warning = Template.bind({});
-Warning.args = {
-	children: "test",
-	color: "warning",
+	theme: "active",
 };

@@ -1,75 +1,58 @@
-import React from "react";
-import styled from "styled-components";
+import styled, { css } from "styled-components";
 import { IProps } from "./types";
 import Typography from "../Typography";
 
-const Container = styled.button<IProps>`
+const Container = styled.button`
 	display: flex;
-	width: ${(props) => selectSize(props.size).width};
-	height: ${(props) => selectSize(props.size).height};
-	background-color: ${(props) => selectColor(props.color)};
-	border: 0;
-	border-radius: 5px;
-	align-items: center;
 	justify-content: center;
-	color: ${(props) => props.fontColor && "black"};
-	cursor: ${(props) => (props.disabled ? "default" : "pointer")};
+	align-items: center;
+	border: 1px solid #d9d9d9;
+	width: 32rem;
+	height: 6rem;
+	color: #222222;
+	background-color: #ffffff;
+	border-radius: 3rem;
+	cursor: pointer;
+	${({ theme }) => themeStyle(theme)}
+
+	&:hover {
+		opacity: 0.8;
+	}
 `;
 
-const selectSize = (size?: string) => {
-	switch (size) {
-		case "large":
-			return {
-				height: "80px",
-				width: "150px",
-			};
-		case "small":
-			return {
-				height: "20px",
-				width: "50px",
-			};
-		default:
-			return {
-				height: "40px",
-				width: "100px",
-			};
-	}
-};
+const ButtonText = styled(Typography)`
+	font-size: 1.8rem;
+	font-weight: 500;
+	line-height: 2.6rem;
+`;
 
-const selectColor = (color?: string) => {
-	switch (color) {
-		case "success":
-			return "#6BBF00";
-		case "warning":
-			return "#C2CF04";
-		case "error":
-			return "#F65900";
-		case "disabled":
-			return "#d2d2d2";
-		default:
-			return "#dddddd";
+const themeStyle = (theme: string) => {
+	switch (theme) {
+		case "active":
+			return css`
+				color: #ffffff;
+				background: #6bbf00;
+			`;
 	}
 };
 
 const Button = ({
-	size,
-	color,
-	children,
-	fontColor,
 	style,
-	disabled,
+	className,
+	children,
 	onClick,
+	disabled,
+	theme,
 }: IProps) => {
 	return (
 		<Container
-			size={size}
-			color={disabled ? "disabled" : color}
-			fontColor={fontColor}
+			theme={theme}
 			style={style}
-			disabled={disabled}
+			className={className}
 			onClick={onClick}
+			disabled={disabled}
 		>
-			<Typography>{children}</Typography>
+			<ButtonText>{children}</ButtonText>
 		</Container>
 	);
 };
