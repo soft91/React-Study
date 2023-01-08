@@ -5,25 +5,17 @@ import { IProps } from "./types";
 
 export default {
 	component: Button,
-	title: "Example/Button",
+	title: "Common/Button",
 } as ComponentMeta<typeof Button>;
 
 const Template: ComponentStory<typeof Button> = (args: IProps) => (
 	<Button {...args} />
 );
 
-export const Active = Template.bind({});
-Active.args = {
-	children: "test",
-	theme: "active",
-};
 export const Default = Template.bind({});
 Default.args = {
-	children: "",
-	color: "",
-	size: "",
-	fontColor: "",
-	disabled: true,
+	children: "test",
+	theme: "active",
 };
 
 export const Large = Template.bind({});

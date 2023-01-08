@@ -62,6 +62,8 @@ const FileUpload = ({
 	const dragRef = useRef<HTMLLabelElement | null>(null);
 	const fileId = useRef<number>(0);
 
+	console.log(setValue);
+
 	const onChangeFiles = useCallback(
 		(e: ChangeEvent<HTMLInputElement> | any): void => {
 			let selectFiles: File[] = [];
@@ -153,7 +155,7 @@ const FileUpload = ({
 			initDragEvents();
 			return () => resetDragEvents();
 		}
-	}, [initDragEvents, resetDragEvents]);
+	}, [initDragEvents, resetDragEvents, drag]);
 
 	return (
 		<Container className={className}>
@@ -170,7 +172,8 @@ const FileUpload = ({
 				{drag ? "파일을 끌어서 업로드해주세요." : "파일을 선택해주세요."}
 			</UploadLabel>
 
-			{value.length > 0 &&
+			{value &&
+				value.length > 0 &&
 				value.map((value: IFileTypes) => (
 					<UploadItem key={value.id}>
 						<UploadTitle>{value.file.name}</UploadTitle>
