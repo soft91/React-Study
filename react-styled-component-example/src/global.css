@@ -1,0 +1,93 @@
+:root {
+	--main-color: #ff0069;
+	--pink-color: #ffedf4;
+	--secondary-color: #999999;
+}
+
+html,
+body {
+	padding: 0;
+	margin: 0;
+	font-family: -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Oxygen,
+		Ubuntu, Cantarell, Fira Sans, Droid Sans, Helvetica Neue, sans-serif;
+	font-size: 10px;
+	font-family: notoSans, sans-serif;
+	word-break: keep-all;
+}
+
+* {
+	margin: 0;
+}
+
+a {
+	color: inherit;
+	text-decoration: none;
+}
+
+* {
+	box-sizing: border-box;
+	-webkit-tap-highlight-color: transparent;
+	outline: none;
+}
+
+i {
+	display: inline-block;
+}
+
+@-ms-viewport {
+	width: device-width;
+}
+
+@media only screen and (min-device-width: 320px) {
+	html {
+		font-size: 9px;
+	}
+}
+
+@media only screen and (min-device-width: 360px) {
+	html {
+		font-size: 10px;
+	}
+}
+
+@media only screen and (min-device-width: 375px) {
+	html {
+		font-size: 10.4167px;
+	}
+}
+
+@media only screen and (min-device-width: 384px) {
+	html {
+		font-size: 10.6667px;
+	}
+}
+
+@media only screen and (min-device-width: 412px) {
+	html {
+		font-size: 11.4444px;
+	}
+}
+
+@media only screen and (min-device-width: 414px) {
+	html {
+		font-size: 11.5px;
+	}
+}
+
+@media only screen and (min-device-width: 480px) {
+	html {
+		font-size: 13.3333px;
+	}
+}
+
+@media only screen and (min-device-width: 600px) {
+	html {
+		font-size: 16.6667px;
+	}
+}
+
+@media only screen and (min-device-width: 768px) {
+	html {
+		font-size: 10px;
+	}
+}
