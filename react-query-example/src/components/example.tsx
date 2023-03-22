@@ -15,7 +15,7 @@ export const Example = () => {
 		"getTodos",
 		getTodos,
 		{
-			refetchOnWindowFocus: true,
+			refetchOnWindowFocus: false,
 		}
 	);
 
