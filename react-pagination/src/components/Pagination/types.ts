@@ -1,4 +1,4 @@
-import { usePagination } from "../hooks/index";
+import { usePagination } from "../../hooks/index";
 
 interface IPagination {
 	pagination: ReturnType<typeof usePagination>;
