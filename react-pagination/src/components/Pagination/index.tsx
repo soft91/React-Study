@@ -75,8 +75,9 @@ const Pagination = ({ pagination }: IPagination) => {
 				move === "next" ? page + 1 : page - 1
 			);
 
-			page % 5 === 0 &&
-				setPageState((prev) => (move === "next" ? prev + 5 : prev - 5));
+			page % 5 === 0
+				? setPageState((prev) => prev + 5)
+				: setPageState((prev) => prev - 5);
 		},
 		[pageState, page]
 	);
@@ -120,7 +121,7 @@ const Pagination = ({ pagination }: IPagination) => {
 				{">"}
 			</Button>
 			<Button
-				disabled={page + 5 > maxPage}
+				disabled={pageNumberList.length < 5}
 				onClick={() => goToJumpPage("next")}
 			>
 				{">>"}
