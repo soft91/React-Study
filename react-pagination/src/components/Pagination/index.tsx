@@ -75,9 +75,13 @@ const Pagination = ({ pagination }: IPagination) => {
 				move === "next" ? page + 1 : page - 1
 			);
 
-			page % 5 === 0
-				? setPageState((prev) => prev + 5)
-				: setPageState((prev) => prev - 5);
+			if (page % 5 === 0 && move === "next") {
+				setPageState((prev) => prev + 5);
+			}
+
+			if (page % 5 === 1 && move === "prev") {
+				setPageState((prev) => prev - 5);
+			}
 		},
 		[pageState, page]
 	);
@@ -102,7 +106,7 @@ const Pagination = ({ pagination }: IPagination) => {
 			>
 				{"<<"}
 			</Button>
-			<Button disabled={pageState === 1} onClick={() => goToPage("prev")}>
+			<Button disabled={page === 1} onClick={() => goToPage("prev")}>
 				{"<"}
 			</Button>
 			<PageWrapper>
