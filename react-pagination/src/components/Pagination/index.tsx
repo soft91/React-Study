@@ -69,33 +69,37 @@ const Pagination = ({ pagination }: IPagination) => {
 
 	const goToPage = useCallback(
 		(move: string) => {
-			setPagination(
-				cntPage,
-				totalCount,
-				move === "next" ? page + 1 : page - 1
-			);
+			let nextPage = move === "next" ? page + 1 : page - 1;
+			nextPage = Math.min(Math.max(nextPage, 1), maxPage);
 
-			if (page % 5 === 0 && move === "next") {
+			setPagination(cntPage, totalCount, nextPage);
+
+			if (nextPage % 5 === 1 && move === "next") {
 				setPageState((prev) => prev + 5);
-			}
-
-			if (page % 5 === 1 && move === "prev") {
+			} else if (nextPage % 5 === 0 && move === "prev") {
 				setPageState((prev) => prev - 5);
 			}
 		},
-		[pageState, page]
+		[page, cntPage, totalCount, maxPage, setPagination]
 	);
 
 	const goToJumpPage = useCallback(
 		(move: string) => {
-			setPagination(
-				cntPage,
-				totalCount,
-				move === "next" ? page + 5 : page - 5
-			);
-			setPageState((prev) => (move === "next" ? (prev += 5) : (prev -= 5)));
+			let nextPage;
+
+			if (move === "next") {
+				nextPage = Math.min(pageState + 5, maxPage);
+			} else {
+				nextPage = Math.max(pageState - 5, 1);
+			}
+
+			nextPage = Math.min(Math.max(nextPage, 1), maxPage);
+
+			setPagination(cntPage, totalCount, nextPage);
+
+			setPageState(nextPage);
 		},
-		[pageState]
+		[pageState, maxPage, cntPage, totalCount, setPagination]
 	);
 
 	return (
