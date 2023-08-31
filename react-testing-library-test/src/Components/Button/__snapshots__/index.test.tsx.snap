@@ -24,7 +24,9 @@ exports[`<Button /> renders component correctly 1`] = `
 
 <div>
   <div
+    backgroundcolor="#304FFE"
     class="c0"
+    hovercolor="#1E40FF"
   >
     <div
       class="c1"

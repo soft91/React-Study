@@ -16,7 +16,7 @@ const Container = Styled.div<ContainerProps>`
     background-color: ${(props) => props.hoverColor};
   }
   &:active {
-    box-shadow: inset 5px 5px 10px rgba(0, 0, 0, 0.2);
+    box-shadow: inset 5px 5px 10px rgba(0,0,0,0.2);
   }
 `;
 const Label = Styled.div`
