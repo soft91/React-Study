@@ -22,7 +22,7 @@ function App() {
         <Route path="/" element={<List />} />
         <Route path="/add" element={<Add />} />
         <Route path="/detail/:id" element={<Detail />} />
-        <Route element={<NotFound />} />
+        <Route path="/*" element={<NotFound />} />
       </Routes>
     </Container>
   );
