@@ -23,45 +23,28 @@ exports[`<List /> renders component correctly 1`] = `
 }
 
 .c0 {
-  display: -webkit-box;
-  display: -webkit-flex;
-  display: -ms-flexbox;
   display: flex;
   background-color: #FFFFFF;
-  -webkit-flex-direction: column;
-  -ms-flex-direction: column;
   flex-direction: column;
   padding: 20px;
   border-radius: 8px;
-  box-shadow: 5px 5px 10px rgba(0,0,0,0.2);
+  box-shadow: 5px 5px 10px rgba(0, 0, 0, 0.2);
   position: relative;
-  -webkit-align-items: center;
-  -webkit-box-align: center;
-  -ms-flex-align: center;
   align-items: center;
 }
 
 .c2 {
-  display: -webkit-box;
-  display: -webkit-flex;
-  display: -ms-flexbox;
   display: flex;
   border-bottom: 1px solid #BDBDBD;
-  -webkit-align-items: center;
-  -webkit-box-align: center;
-  -ms-flex-align: center;
   align-items: center;
   margin: 10px;
   padding: 10px;
 }
 
 .c3 {
-  -webkit-flex: 1;
-  -ms-flex: 1;
   flex: 1;
   font-size: 16px;
   margin-right: 20px;
-  -webkit-text-decoration: none;
   text-decoration: none;
 }
 
@@ -76,17 +59,8 @@ exports[`<List /> renders component correctly 1`] = `
 .c6 {
   font-size: 20px;
   color: #FFFFFF;
-  display: -webkit-box;
-  display: -webkit-flex;
-  display: -ms-flexbox;
   display: flex;
-  -webkit-align-items: center;
-  -webkit-box-align: center;
-  -ms-flex-align: center;
   align-items: center;
-  -webkit-box-pack: center;
-  -webkit-justify-content: center;
-  -ms-flex-pack: center;
   justify-content: center;
   width: 60px;
   height: 60px;
@@ -95,8 +69,7 @@ exports[`<List /> renders component correctly 1`] = `
   position: absolute;
   bottom: -30px;
   background-color: #304FFE;
-  box-shadow: 5px 5px 10px rgba(0,0,0,0.2);
-  -webkit-text-decoration: none;
+  box-shadow: 5px 5px 10px rgba(0, 0, 0, 0.2);
   text-decoration: none;
 }
 
@@ -105,7 +78,7 @@ exports[`<List /> renders component correctly 1`] = `
 }
 
 .c6:active {
-  box-shadow: inset 5px 5px 10px rgba(0,0,0,0.2);
+  box-shadow: inset 5px 5px 10px rgba(0, 0, 0, 0.2);
 }
 
 <div>
@@ -125,7 +98,9 @@ exports[`<List /> renders component correctly 1`] = `
           ToDo 1
         </a>
         <div
+          backgroundcolor="#FF1744"
           class="c4"
+          hovercolor="#F01440"
         >
           <div
             class="c5"
@@ -144,7 +119,9 @@ exports[`<List /> renders component correctly 1`] = `
           ToDo 2
         </a>
         <div
+          backgroundcolor="#FF1744"
           class="c4"
+          hovercolor="#F01440"
         >
           <div
             class="c5"
@@ -163,7 +140,9 @@ exports[`<List /> renders component correctly 1`] = `
           ToDo 3
         </a>
         <div
+          backgroundcolor="#FF1744"
           class="c4"
+          hovercolor="#F01440"
         >
           <div
             class="c5"

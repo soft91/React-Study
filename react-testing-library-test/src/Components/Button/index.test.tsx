@@ -11,7 +11,7 @@ describe('<Button />', () => {
     const label = screen.getByText('추가');
     expect(label).toBeInTheDocument();
 
-    const parent = label.parentElement;
+    const parent = container;
     expect(parent).toHaveStyleRule('background-color', '#304FFE');
     expect(parent).toHaveStyleRule('background-color', '#1E40FF', {
       modifier: ':hover',
@@ -24,11 +24,12 @@ describe('<Button />', () => {
   });
 
   it('changes backgroundColor and hoverColor Props', () => {
+    const { container } = render(<Button label="추가" />);
     const backgroundColor = '#FF1744';
     const hoverColor = '#F01440';
     render(<Button label="추가" backgroundColor={backgroundColor} hoverColor={hoverColor} />);
 
-    const parent = screen.getByText('추가').parentElement;
+    const parent = container;
     expect(parent).toHaveStyleRule('background-color', backgroundColor);
     expect(parent).toHaveStyleRule('background-color', hoverColor, {
       modifier: ':hover',
