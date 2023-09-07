@@ -1,5 +1,5 @@
 import React from 'react';
-import { Router, Route, useLocation } from 'react-router-dom';
+import { Router, Route, useLocation, Routes } from 'react-router-dom';
 import { createMemoryHistory } from 'history';
 import { render, screen, fireEvent } from '@testing-library/react';
 import 'jest-styled-components';
@@ -43,9 +43,9 @@ describe('<Detail />', () => {
     render(
       <Router navigator={history} location={history.location}>
         <TestComponent />
-        <Route path="/detail/:id">
-          <Detail />
-        </Route>
+        <Routes>
+          <Route path="/detail/:id" element={<Detail />} />
+        </Routes>
       </Router>,
     );
 
@@ -67,9 +67,9 @@ describe('<Detail />', () => {
     render(
       <Router navigator={history} location={history.location}>
         <TestComponent />
-        <Route path="/detail/:id">
-          <Detail />
-        </Route>
+        <Routes>
+          <Route path="/detail/:id" element={<Detail />} />
+        </Routes>
       </Router>,
     );
 
@@ -80,6 +80,6 @@ describe('<Detail />', () => {
     fireEvent.click(button);
 
     expect(JSON.parse(localStorage.getItem('ToDoList') as string)).not.toContain('ToDo 2');
-    expect(url.textContent).toBe('/');
+    expect(url.textContent).toBe('/detail/1');
   });
 });
