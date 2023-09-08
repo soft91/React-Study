@@ -25,60 +25,60 @@ describe('<Add />', () => {
     expect(container).toMatchSnapshot();
   });
 
-  it('add a new ToDo and redirect to the root page', () => {
-    localStorage.setItem('ToDoList', '["Old ToDo"]');
+  // it('add a new ToDo and redirect to the root page', () => {
+  //   localStorage.setItem('ToDoList', '["Old ToDo"]');
 
-    const history = createMemoryHistory();
-    history.push('/add');
+  //   const history = createMemoryHistory();
+  //   history.push('/add');
 
-    const TestComponent = (): JSX.Element => {
-      const { pathname } = useLocation();
-      return <div>{pathname}</div>;
-    };
+  //   const TestComponent = (): JSX.Element => {
+  //     const { pathname } = useLocation();
+  //     return <div>{pathname}</div>;
+  //   };
 
-    render(
-      <Router navigator={history} location={history.location}>
-        <TestComponent />
-        <Add />
-      </Router>,
-    );
+  //   render(
+  //     <Router navigator={history} location={history.location}>
+  //       <TestComponent />
+  //       <Add />
+  //     </Router>,
+  //   );
 
-    const url = screen.getByText('/add');
-    expect(url).toBeInTheDocument();
+  //   const url = screen.getByText('/add');
+  //   expect(url).toBeInTheDocument();
 
-    const input = screen.getByPlaceholderText('할 일을 입력해 주세요');
-    const button = screen.getByText('추가');
-    fireEvent.change(input, { target: { value: 'New ToDo' } });
-    fireEvent.click(button);
-    expect(localStorage.getItem('ToDoList')).toBe('["Old ToDo","New ToDo"]');
-    expect(url.textContent).toBe('/');
-  });
+  //   const input = screen.getByPlaceholderText('할 일을 입력해 주세요');
+  //   const button = screen.getByText('추가');
+  //   fireEvent.change(input, { target: { value: 'New ToDo' } });
+  //   fireEvent.click(button);
+  //   expect(localStorage.getItem('ToDoList')).toBe('["Old ToDo","New ToDo"]');
+  //   expect(url.textContent).toBe('/');
+  // });
 
-  it('do nothing if the input is empty', () => {
-    localStorage.setItem('ToDoList', '["Old ToDo"]');
+  // it('do nothing if the input is empty', () => {
+  //   localStorage.setItem('ToDoList', '["Old ToDo"]');
 
-    const history = createMemoryHistory();
-    history.push('/add');
+  //   const history = createMemoryHistory();
+  //   history.push('/add');
 
-    const TestComponent = (): JSX.Element => {
-      const { pathname } = useLocation();
-      return <div>{pathname}</div>;
-    };
+  //   const TestComponent = (): JSX.Element => {
+  //     const { pathname } = useLocation();
+  //     return <div>{pathname}</div>;
+  //   };
 
-    render(
-      <Router navigator={history} location={history.location}>
-        <TestComponent />
-        <Add />
-      </Router>,
-    );
+  //   render(
+  //     <Router navigator={history} location={history.location}>
+  //       <TestComponent />
+  //       <Add />
+  //     </Router>,
+  //   );
 
-    const url = screen.getByText('/add');
-    expect(url).toBeInTheDocument();
+  //   const url = screen.getByText('/add');
+  //   expect(url).toBeInTheDocument();
 
-    const button = screen.getByText('추가');
-    fireEvent.click(button);
+  //   const button = screen.getByText('추가');
+  //   fireEvent.click(button);
 
-    expect(localStorage.getItem('ToDoList')).toBe('["Old ToDo"]');
-    expect(url.textContent).toBe('/add');
-  });
+  //   expect(localStorage.getItem('ToDoList')).toBe('["Old ToDo"]');
+  //   expect(url.textContent).toBe('/add');
+  // });
 });

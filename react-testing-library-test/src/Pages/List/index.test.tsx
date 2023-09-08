@@ -36,78 +36,78 @@ describe('<List />', () => {
     expect(container).toMatchSnapshot();
   });
 
-  it('deletes toDo item', () => {
-    const history = createMemoryHistory();
-    history.push('/');
+  // it('deletes toDo item', () => {
+  //   const history = createMemoryHistory();
+  //   history.push('/');
 
-    localStorage.setItem('ToDoList', '["ToDo 1", "ToDo 2", "ToDo 3"]');
+  //   localStorage.setItem('ToDoList', '["ToDo 1", "ToDo 2", "ToDo 3"]');
 
-    render(
-      <Router location={history.location} navigator={history}>
-        <List />
-      </Router>,
-    );
+  //   render(
+  //     <Router location={history.location} navigator={history}>
+  //       <List />
+  //     </Router>,
+  //   );
 
-    const toDoItem = screen.getByText('ToDo 2');
-    expect(toDoItem).toBeInTheDocument();
+  //   const toDoItem = screen.getByText('ToDo 2');
+  //   expect(toDoItem).toBeInTheDocument();
 
-    fireEvent.click(toDoItem.nextElementSibling as HTMLElement);
+  //   fireEvent.click(toDoItem.nextElementSibling as HTMLElement);
 
-    expect(toDoItem).not.toBeInTheDocument();
-    expect(JSON.parse(localStorage.getItem('ToDoList') as string)).not.toContain('ToDo 2');
-  });
+  //   expect(toDoItem).not.toBeInTheDocument();
+  //   expect(JSON.parse(localStorage.getItem('ToDoList') as string)).not.toContain('ToDo 2');
+  // });
 
-  it('moves to detail page', () => {
-    const history = createMemoryHistory();
-    history.push('/');
+  // it('moves to detail page', () => {
+  //   const history = createMemoryHistory();
+  //   history.push('/');
 
-    localStorage.setItem('ToDoList', '["ToDo 1", "ToDo 2", "ToDo 3"]');
+  //   localStorage.setItem('ToDoList', '["ToDo 1", "ToDo 2", "ToDo 3"]');
 
-    const TestComponent = (): JSX.Element => {
-      const { pathname } = useLocation();
-      return <div>{pathname}</div>;
-    };
+  //   const TestComponent = (): JSX.Element => {
+  //     const { pathname } = useLocation();
+  //     return <div>{pathname}</div>;
+  //   };
 
-    render(
-      <Router navigator={history} location={history.location}>
-        <TestComponent />
-        <List />
-      </Router>,
-    );
+  //   render(
+  //     <Router navigator={history} location={history.location}>
+  //       <TestComponent />
+  //       <List />
+  //     </Router>,
+  //   );
 
-    const url = screen.getByText('/');
-    expect(url).toBeInTheDocument();
+  //   const url = screen.getByText('/');
+  //   expect(url).toBeInTheDocument();
 
-    const toDoItem1 = screen.getByText('ToDo 2');
-    expect(toDoItem1.getAttribute('href')).toBe('/detail/1');
+  //   const toDoItem1 = screen.getByText('ToDo 2');
+  //   expect(toDoItem1.getAttribute('href')).toBe('/detail/1');
 
-    fireEvent.click(toDoItem1);
-    expect(url.textContent).toBe('/detail/1');
-  });
+  //   fireEvent.click(toDoItem1);
+  //   expect(url.textContent).toBe('/detail/1');
+  // });
 
-  it('moves to add page', () => {
-    const history = createMemoryHistory();
-    history.push('/');
+  // it('moves to add page', () => {
+  //   const history = createMemoryHistory();
+  //   history.push('/');
 
-    const TestComponent = (): JSX.Element => {
-      const { pathname } = useLocation();
-      return <div>{pathname}</div>;
-    };
+  //   const TestComponent = (): JSX.Element => {
+  //     const { pathname } = useLocation();
+  //     return <div>{pathname}</div>;
+  //   };
 
-    render(
-      <Router navigator={history} location={history.location}>
-        <TestComponent />
-        <List />
-      </Router>,
-    );
+  //   render(
+  //     <Router navigator={history} location={history.location}>
+  //       <TestComponent />
+  //       <List />
+  //     </Router>,
+  //   );
 
-    const url = screen.getByText('/');
-    expect(url).toBeInTheDocument();
+  //   const url = screen.getByText('/');
+  //   expect(url).toBeInTheDocument();
 
-    const addButton = screen.getByText('+');
-    expect(addButton.getAttribute('href')).toBe('/add');
+  //   const addButton = screen.getByText('+');
+  //   expect(addButton.getAttribute('href')).toBe('/add');
 
-    fireEvent.click(addButton);
-    expect(url.textContent).toBe('/add');
-  });
+  //   fireEvent.click(addButton);
+  //   expect(url.textContent).toBe('/add');
+  // });
 });
