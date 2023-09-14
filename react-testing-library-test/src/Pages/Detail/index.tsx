@@ -42,7 +42,7 @@ export const Detail = () => {
   return (
     <Container>
       <ToDo>{toDo}</ToDo>
-      <Button label="삭제" backgroundColor="#FF1744" hoverColor="#F01440" onClick={onDelete} />
+      <Button label="삭제" backgroundcolor="#FF1744" hovercolor="#F01440" onClick={onDelete} />
     </Container>
   );
 };

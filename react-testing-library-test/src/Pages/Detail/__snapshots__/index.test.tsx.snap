@@ -23,20 +23,12 @@ exports[`<Detail /> renders component correctly 1`] = `
 }
 
 .c0 {
-  display: -webkit-box;
-  display: -webkit-flex;
-  display: -ms-flexbox;
   display: flex;
   background-color: #FFFFFF;
   padding: 20px;
   border-radius: 8px;
-  box-shadow: 5px 5px 10px rgba(0,0,0,0.2);
-  -webkit-align-items: center;
-  -webkit-box-align: center;
-  -ms-flex-align: center;
+  box-shadow: 5px 5px 10px rgba(0, 0, 0, 0.2);
   align-items: center;
-  -webkit-flex-direction: column;
-  -ms-flex-direction: column;
   flex-direction: column;
 }
 
@@ -59,7 +51,9 @@ exports[`<Detail /> renders component correctly 1`] = `
       ToDo 2
     </div>
     <div
+      backgroundcolor="#FF1744"
       class="c2"
+      hovercolor="#F01440"
     >
       <div
         class="c3"

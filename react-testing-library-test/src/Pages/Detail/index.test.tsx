@@ -15,9 +15,9 @@ describe('<Detail />', () => {
 
     const { container } = render(
       <Router navigator={history} location={history.location}>
-        <Route path="/detail/:id">
-          <Detail />
-        </Route>
+        <Routes>
+          <Route path="/detail/:id" element={<Detail />} />
+        </Routes>
       </Router>,
     );
 

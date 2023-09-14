@@ -82,8 +82,8 @@ export const List = () => {
             <Label to={`/detail/${index}`}>{todo}</Label>
             <Button
               label="삭제"
-              backgroundColor="#FF1744"
-              hoverColor="#F01440"
+              backgroundcolor="#FF1744"
+              hovercolor="#F01440"
               onClick={() => onDelete(index)}
             />
           </ToDoItem>

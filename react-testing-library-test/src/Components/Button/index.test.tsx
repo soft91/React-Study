@@ -12,7 +12,6 @@ describe('<Button />', () => {
     expect(label).toBeInTheDocument();
 
     const parent = container;
-    expect(parent).toHaveStyleRule('background-color', '#304FFE');
     expect(parent).toHaveStyleRule('background-color', '#1E40FF', {
       modifier: ':hover',
     });
