@@ -1,7 +1,7 @@
 import React from 'react';
-import { Router, Route, useLocation, Routes } from 'react-router-dom';
+import { Router, Route, Routes } from 'react-router-dom';
 import { createMemoryHistory } from 'history';
-import { render, screen, fireEvent } from '@testing-library/react';
+import { render, screen } from '@testing-library/react';
 import 'jest-styled-components';
 
 import { Detail } from './index';
