@@ -5,4 +5,5 @@ module.exports = {
     // allowContainerFirstChild를 true로 설정
     allowContainerFirstChild: true,
   },
+  setupFilesAfterEnv: ['<rootDir>/src/setupTests.ts'],
 };

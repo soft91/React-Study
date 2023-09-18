@@ -14,11 +14,11 @@ exports[`<Detail /> renders component correctly 1`] = `
 }
 
 .c2:active {
-  box-shadow: inset 5px 5px 10px rgba(0,0,0,0.2);
+  box-shadow: inset 5px 5px 10px rgba(0, 0, 0, 0.2);
 }
 
 .c3 {
-  color: #FFFFFF;
+  color: #ffffff;
   font-size: 16px;
 }
 
