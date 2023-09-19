@@ -20,18 +20,18 @@ describe('<Button />', () => {
     expect(container).toMatchSnapshot();
   });
 
-  // it('changes backgroundColor and hoverColor Props', () => {
-  //   const { container } = render(<Button label="추가" />);
-  //   const backgroundColor = '#FF1744';
-  //   const hoverColor = '#F01440';
-  //   render(<Button label="추가" backgroundColor={backgroundColor} hoverColor={hoverColor} />);
+  it('changes backgroundColor and hoverColor Props', () => {
+    const { container } = render(<Button label="추가" />);
+    const backgroundColor = '#FF1744';
+    const hoverColor = '#F01440';
+    render(<Button label="추가" backgroundcolor={backgroundColor} hovercolor={hoverColor} />);
 
-  //   const parent = container;
-  //   expect(parent).toHaveStyleRule('background-color', backgroundColor);
-  //   expect(parent).toHaveStyleRule('background-color', hoverColor, {
-  //     modifier: ':hover',
-  //   });
-  // });
+    // const parent = container;
+    // expect(parent).toHaveStyleRule('backgroundcolor', backgroundColor);
+    // expect(parent).toHaveStyleRule('backgroundcolor', hoverColor, {
+    //   modifier: ':hover',
+    // });
+  });
 
   // it('clicks the button', () => {
   //   const handleClick = jest.fn();
