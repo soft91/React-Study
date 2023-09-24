@@ -1,10 +1,10 @@
-import React, { useEffect, useRef, useState } from "react";
-
+import React, { ChangeEvent, useEffect, useRef, useState } from "react";
 import "./App.css";
 import { io } from "socket.io-client";
+import logo from "./images/iologo.png";
 
 interface IMessageData {
-	msg: any;
+	msg: string;
 	type: string;
 	id: string;
 }
@@ -12,7 +12,7 @@ interface IMessageData {
 const webSocket = io("http://localhost:5000");
 
 function App() {
-	const messagesEndref = useRef(null);
+	const messagesEndref = useRef<HTMLLIElement | null>(null);
 	const [userId, setUserId] = useState<string>("");
 	const [isLogin, setIsLogin] = useState<boolean>(false);
 	const [msg, setMsg] = useState<string>("");
@@ -65,17 +65,17 @@ function App() {
 		messagesEndref.current?.scrollIntoView({ behavior: "smooth" });
 	};
 
-	const onSubmitHandler = (e) => {
+	const onSubmitHandler = (e: HTMLFormElement) => {
 		e.preventDefault();
 		webSocket.emit("login", userId);
 		setIsLogin(true);
 	};
 
-	const onChangeHandler = (e) => {
+	const onChangeUserIdHandler = (e: ChangeEvent<HTMLInputElement>) => {
 		setUserId(e.target.value);
 	};
 
-	const onSendSubmitHandler = (e) => {
+	const onSendSubmitHandler = (e: HTMLFormElement) => {
 		e.preventDefault();
 		const sendData = {
 			data: msg,
@@ -93,35 +93,64 @@ function App() {
 		]);
 	};
 
-  const onChangeMsgHandler = (e) => {
-    setMsg(e.target.value);
-  }
+	const onChangeMsgHandler = (e: ChangeEvent<HTMLInputElement>) => {
+		setMsg(e.target.value);
+	};
 
-	return <div className="app-contianer">
-    <div className="wrap">
-      {isLogin ? (
-        <div className="chat-box">
-          <h3>Login as a "{userId}"</h3>
-          <ul className="chat">
-            {msgList.map((v, i) => 
-              v.type === "welcome" ? (
-                <li className="welcome">
-                  <div className="line"></div>
-                  <div>{v.msg}</div>
-                  <div className="line"></div>
-                </li>
-              ): (
-                <li className={v.type} key={`${i}_li`}>
-                  <div className="userId">{v.id}</div>
-                  <div className={v.type}>{v.msg}</div>
-                </li>
-              )}
-              <li ref={messagesEndref}></li>
-          </ul>
-        </div>
-      )}
-    </div>
-  </div>;
+	return (
+		<div className="app-contianer">
+			<div className="wrap">
+				{isLogin ? (
+					<div className="chat-box">
+						<h3>Login as a "{userId}"</h3>
+						<ul className="chat">
+							{msgList.map((v, i) =>
+								v.type === "welcome" ? (
+									<li className="welcome">
+										<div className="line"></div>
+										<div>{v.msg}</div>
+										<div className="line"></div>
+									</li>
+								) : (
+									<li className={v.type} key={`${i}_li`}>
+										<div className="userId">{v.id}</div>
+										<div className={v.type}>{v.msg}</div>
+									</li>
+								)
+							)}
+							<li ref={messagesEndref} />
+						</ul>
+						<form
+							className="send-form"
+							onSubmit={() => onSendSubmitHandler}
+						>
+							<input
+								placeholder="Enter your message"
+								onChange={onChangeMsgHandler}
+								value={msg}
+							/>
+							<button type="submit">send</button>
+						</form>
+					</div>
+				) : (
+					<div className="login-box">
+						<div className="login-title">
+							<img src={logo} width="40px" height="40px" alt="logo" />
+							<div>IOChat</div>
+						</div>
+						<form className="login-form" onSubmit={() => onSubmitHandler}>
+							<input
+								placeholder="Enter your ID"
+								onChange={onChangeUserIdHandler}
+								value={userId}
+							/>
+							<button type="submit">Login</button>
+						</form>
+					</div>
+				)}
+			</div>
+		</div>
+	);
 }
 
 export default App;
