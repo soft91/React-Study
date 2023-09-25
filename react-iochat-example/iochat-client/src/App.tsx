@@ -1,4 +1,10 @@
-import React, { ChangeEvent, useEffect, useRef, useState } from "react";
+import React, {
+	ChangeEvent,
+	FormEvent,
+	useEffect,
+	useRef,
+	useState,
+} from "react";
 import "./App.css";
 import { io } from "socket.io-client";
 import logo from "./images/iologo.png";
@@ -65,7 +71,7 @@ function App() {
 		messagesEndref.current?.scrollIntoView({ behavior: "smooth" });
 	};
 
-	const onSubmitHandler = (e: HTMLFormElement) => {
+	const onSubmitHandler = (e: FormEvent<HTMLFormElement>) => {
 		e.preventDefault();
 		webSocket.emit("login", userId);
 		setIsLogin(true);
@@ -75,7 +81,7 @@ function App() {
 		setUserId(e.target.value);
 	};
 
-	const onSendSubmitHandler = (e: HTMLFormElement) => {
+	const onSendSubmitHandler = (e: FormEvent<HTMLFormElement>) => {
 		e.preventDefault();
 		const sendData = {
 			data: msg,
@@ -122,7 +128,7 @@ function App() {
 						</ul>
 						<form
 							className="send-form"
-							onSubmit={() => onSendSubmitHandler}
+							onSubmit={(e) => onSendSubmitHandler(e)}
 						>
 							<input
 								placeholder="Enter your message"
@@ -138,7 +144,10 @@ function App() {
 							<img src={logo} width="40px" height="40px" alt="logo" />
 							<div>IOChat</div>
 						</div>
-						<form className="login-form" onSubmit={() => onSubmitHandler}>
+						<form
+							className="login-form"
+							onSubmit={(e) => onSubmitHandler(e)}
+						>
 							<input
 								placeholder="Enter your ID"
 								onChange={onChangeUserIdHandler}
