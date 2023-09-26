@@ -5,10 +5,9 @@ import React, {
 	useRef,
 	useState,
 } from "react";
-import "./App.css";
 import { io } from "socket.io-client";
 import logo from "./images/iologo.png";
-
+import "./App.css";
 interface IMessageData {
 	msg: string;
 	type: string;
@@ -104,7 +103,7 @@ function App() {
 	};
 
 	return (
-		<div className="app-contianer">
+		<div className="app-container">
 			<div className="wrap">
 				{isLogin ? (
 					<div className="chat-box">
@@ -112,7 +111,7 @@ function App() {
 						<ul className="chat">
 							{msgList.map((v, i) =>
 								v.type === "welcome" ? (
-									<li className="welcome">
+									<li className="welcome" key={`${i}_li`}>
 										<div className="line"></div>
 										<div>{v.msg}</div>
 										<div className="line"></div>
