@@ -38,8 +38,6 @@ function App() {
 			]);
 		};
 
-		console.log("git test");
-
 		webSocket.on("sMessage", sMessageCallback);
 		return () => {
 			webSocket.off("sMessage", sMessageCallback);
