@@ -4,6 +4,7 @@ import React, {
 	useEffect,
 	useRef,
 	useState,
+	MouseEvent,
 } from "react";
 import { io } from "socket.io-client";
 import logo from "./images/iologo.png";
@@ -23,16 +24,18 @@ function App() {
 	const [msg, setMsg] = useState<string>("");
 	const [msgList, setMsgList] = useState<IMessageData[]>([]);
 
+	const [privateTarget, setPrivateTarget] = useState<string>("");
+
 	useEffect(() => {
 		if (!webSocket) return;
 
 		const sMessageCallback = (msg: any) => {
-			const { data, id } = msg;
+			const { data, id, target } = msg;
 			setMsgList((prev) => [
 				...prev,
 				{
 					msg: data,
-					type: "other",
+					type: target ? "private" : "other",
 					id: id,
 				},
 			]);
@@ -86,6 +89,7 @@ function App() {
 		const sendData = {
 			data: msg,
 			id: userId,
+			target: privateTarget,
 		};
 
 		webSocket.emit("message", sendData);
@@ -103,6 +107,12 @@ function App() {
 		setMsg(e.target.value);
 	};
 
+	const onSetPrivateTarget = (e: MouseEvent<HTMLLIElement>) => {
+		const { id } = e.currentTarget.dataset;
+		console.log(id);
+		setPrivateTarget((prev) => (prev === id ? "" : id || ""));
+	};
+
 	return (
 		<div className="app-container">
 			<div className="wrap">
@@ -118,8 +128,21 @@ function App() {
 										<div className="line"></div>
 									</li>
 								) : (
-									<li className={v.type} key={`${i}_li`}>
-										<div className="userId">{v.id}</div>
+									<li
+										className={v.type}
+										key={`${i}_li`}
+										data-id={v.id}
+										onClick={onSetPrivateTarget}
+									>
+										<div
+											className={
+												v.id === privateTarget
+													? "private-user"
+													: "userId"
+											}
+										>
+											{v.id}
+										</div>
 										<div className={v.type}>{v.msg}</div>
 									</li>
 								)
@@ -130,6 +153,9 @@ function App() {
 							className="send-form"
 							onSubmit={(e) => onSendSubmitHandler(e)}
 						>
+							{privateTarget && (
+								<div className="private-target">{privateTarget}</div>
+							)}
 							<input
 								placeholder="Enter your message"
 								onChange={onChangeMsgHandler}
