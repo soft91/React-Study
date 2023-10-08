@@ -15,7 +15,7 @@ interface IMessageData {
 	id: string;
 }
 
-const webSocket = io("http://localhost:5000");
+const webSocket = io("http://localhost:5001");
 
 function App() {
 	const messagesEndref = useRef<HTMLLIElement | null>(null);
@@ -25,6 +25,8 @@ function App() {
 	const [msgList, setMsgList] = useState<IMessageData[]>([]);
 
 	const [privateTarget, setPrivateTarget] = useState<string>("");
+
+	const [roomNumber, setRoomNumber] = useState<string>("");
 
 	useEffect(() => {
 		if (!webSocket) return;
@@ -76,7 +78,7 @@ function App() {
 
 	const onSubmitHandler = (e: FormEvent<HTMLFormElement>) => {
 		e.preventDefault();
-		webSocket.emit("login", userId);
+		webSocket.emit("login", { userId: userId, roomNumber: roomNumber });
 		setIsLogin(true);
 	};
 
@@ -113,12 +115,18 @@ function App() {
 		setPrivateTarget((prev) => (prev === id ? "" : id || ""));
 	};
 
+	const onRoomChangeHandler = (e: ChangeEvent<HTMLSelectElement>) => {
+		setRoomNumber(e.target.value);
+	};
+
 	return (
 		<div className="app-container">
 			<div className="wrap">
 				{isLogin ? (
 					<div className="chat-box">
-						<h3>Login as a "{userId}"</h3>
+						<h3>
+							Login as a "{userId}" in Room {roomNumber}
+						</h3>
 						<ul className="chat">
 							{msgList.map((v, i) =>
 								v.type === "welcome" ? (
@@ -174,6 +182,10 @@ function App() {
 							className="login-form"
 							onSubmit={(e) => onSubmitHandler(e)}
 						>
+							<select onChange={(e) => onRoomChangeHandler(e)}>
+								<option value="1">Room 1</option>
+								<option value="2">Room 2</option>
+							</select>
 							<input
 								placeholder="Enter your ID"
 								onChange={onChangeUserIdHandler}

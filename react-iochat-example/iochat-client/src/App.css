@@ -53,6 +53,11 @@
 .app-container > .wrap > .chat-box .chat li.other {
 	text-align: right;
 }
+.app-container > .wrap > .chat-box .chat li.private {
+	text-align: right;
+	color: red;
+	cursor: pointer;
+}
 .app-container > .wrap > .chat-box .chat li.welcome {
 	display: flex;
 	flex-direction: row;
