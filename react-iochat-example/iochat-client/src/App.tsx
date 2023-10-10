@@ -50,6 +50,10 @@ function App() {
 	}, []);
 
 	useEffect(() => {
+		scrollToBottom();
+	}, [msgList]);
+
+	useEffect(() => {
 		if (!webSocket) return;
 
 		const sLoginCallback = (msg: any) => {
@@ -67,10 +71,6 @@ function App() {
 			webSocket.off("sLogin", sLoginCallback);
 		};
 	}, []);
-
-	useEffect(() => {
-		scrollToBottom();
-	}, [msgList]);
 
 	const scrollToBottom = () => {
 		messagesEndref.current?.scrollIntoView({ behavior: "smooth" });
@@ -111,7 +111,6 @@ function App() {
 
 	const onSetPrivateTarget = (e: MouseEvent<HTMLLIElement>) => {
 		const { id } = e.currentTarget.dataset;
-		console.log(id);
 		setPrivateTarget((prev) => (prev === id ? "" : id || ""));
 	};
 
@@ -148,10 +147,13 @@ function App() {
 													? "private-user"
 													: "userId"
 											}
+											data-id={v.id}
 										>
 											{v.id}
 										</div>
-										<div className={v.type}>{v.msg}</div>
+										<div className={v.type} data-id={v.id}>
+											{v.msg}
+										</div>
 									</li>
 								)
 							)}
