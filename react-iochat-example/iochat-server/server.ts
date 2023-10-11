@@ -6,15 +6,16 @@ const io = new Server("5001", {
 	},
 });
 
-const clinets = new Map();
+const clients = new Map();
 
 io.sockets.on("connection", (socket) => {
 	socket.on("message", (res) => {
 		const { target } = res;
-		const toUser = clinets.get(target);
-		target
-			? io.sockets.to(toUser).emit("sMessage", res)
-			: socket.broadcast.emit("sMessage", res);
+		if (target) {
+			const toUser = clients.get(target);
+			io.sockets.to(toUser).emit("sMessage", res);
+			return;
+		}
 
 		const myRooms = Array.from(socket.rooms);
 		if (myRooms.length > 1) {
@@ -27,7 +28,7 @@ io.sockets.on("connection", (socket) => {
 		const { userId, roomNumber } = data;
 
 		socket.join(roomNumber);
-		clinets.set(userId, socket.id);
+		clients.set(userId, socket.id);
 		socket.broadcast.emit("sLogin", userId);
 	});
 	socket.on("disconnect", () => {

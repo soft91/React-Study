@@ -26,7 +26,7 @@ function App() {
 
 	const [privateTarget, setPrivateTarget] = useState<string>("");
 
-	const [roomNumber, setRoomNumber] = useState<string>("");
+	const [roomNumber, setRoomNumber] = useState<string>("1");
 
 	useEffect(() => {
 		if (!webSocket) return;
@@ -50,10 +50,6 @@ function App() {
 	}, []);
 
 	useEffect(() => {
-		scrollToBottom();
-	}, [msgList]);
-
-	useEffect(() => {
 		if (!webSocket) return;
 
 		const sLoginCallback = (msg: any) => {
@@ -71,6 +67,10 @@ function App() {
 			webSocket.off("sLogin", sLoginCallback);
 		};
 	}, []);
+
+	useEffect(() => {
+		scrollToBottom();
+	}, [msgList]);
 
 	const scrollToBottom = () => {
 		messagesEndref.current?.scrollIntoView({ behavior: "smooth" });
@@ -103,6 +103,7 @@ function App() {
 				id: userId,
 			},
 		]);
+		setMsg("");
 	};
 
 	const onChangeMsgHandler = (e: ChangeEvent<HTMLInputElement>) => {
@@ -115,6 +116,7 @@ function App() {
 	};
 
 	const onRoomChangeHandler = (e: ChangeEvent<HTMLSelectElement>) => {
+		console.log(e.target.value);
 		setRoomNumber(e.target.value);
 	};
 
