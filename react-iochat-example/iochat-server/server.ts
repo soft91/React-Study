@@ -1,37 +1,42 @@
-const { Server } = require("socket.io");
+import http from "http";
+import { Server } from "socket.io";
 
-const io = new Server("5001", {
-	cors: {
-		origin: "http://localhost:3000",
-	},
-});
-
-const clients = new Map();
-
-io.sockets.on("connection", (socket) => {
-	socket.on("message", (res) => {
-		const { target } = res;
-		if (target) {
-			const toUser = clients.get(target);
-			io.sockets.to(toUser).emit("sMessage", res);
-			return;
-		}
-
-		const myRooms = Array.from(socket.rooms);
-		if (myRooms.length > 1) {
-			socket.broadcast.in(myRooms[1]).emit("sMessage", res);
-			return;
-		}
-		socket.broadcast.emit("sMessage", res);
+const socket = (server: http.Server) => {
+	const io = new Server(server, {
+		cors: {
+			origin: "http://localhost:3000",
+		},
 	});
-	socket.on("login", (data) => {
-		const { userId, roomNumber } = data;
 
-		socket.join(roomNumber);
-		clients.set(userId, socket.id);
-		socket.broadcast.emit("sLogin", userId);
+	io.sockets.on("connection", (socket) => {
+		const clients = new Map();
+
+		socket.on("message", (res) => {
+			const { target } = res;
+			if (target) {
+				const toUser = clients.get(target);
+				io.sockets.to(toUser).emit("sMessage", res);
+				return;
+			}
+
+			const myRooms = Array.from(socket.rooms);
+			if (myRooms.length > 1) {
+				socket.broadcast.in(myRooms[1]).emit("sMessage", res);
+				return;
+			}
+			socket.broadcast.emit("sMessage", res);
+		});
+		socket.on("login", (data) => {
+			const { userId, roomNumber } = data;
+
+			socket.join(roomNumber);
+			clients.set(userId, socket.id);
+			socket.broadcast.emit("sLogin", userId);
+		});
+		socket.on("disconnect", () => {
+			console.log("user disconnected");
+		});
 	});
-	socket.on("disconnect", () => {
-		console.log("user disconnected");
-	});
-});
+};
+
+export default socket;
