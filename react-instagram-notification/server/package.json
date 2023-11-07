@@ -8,6 +8,8 @@
 	},
 	"dependencies": {
 		"nodemon": "^3.0.1",
-		"socket.io": "^4.7.2"
+		"socket.io": "^4.7.2",
+		"ts-node": "^10.9.1",
+		"typescript": "^5.2.2"
 	}
 }

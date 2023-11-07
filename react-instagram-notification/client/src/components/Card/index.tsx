@@ -24,6 +24,9 @@ const Card: React.FC<CardProps> = ({ key, post, loginUser }: CardProps) => {
 	const onLikeHandler = (e: MouseEvent<SVGSVGElement>) => {
 		const { type } = e.currentTarget.dataset;
 		setLiked(type === "0");
+
+		console.log(post.userName);
+
 		socket.emit("sendNotification", {
 			senderName: loginUser,
 			receiverName: post.userName,
@@ -32,7 +35,7 @@ const Card: React.FC<CardProps> = ({ key, post, loginUser }: CardProps) => {
 	};
 
 	return (
-		<div className={styles.card} key={key}>
+		<div className={styles.card}>
 			<div className={styles.info}>
 				<div className={styles.userInfo}>
 					<img src={post.userImg} alt="" className={styles.userImg} />

@@ -42,12 +42,15 @@ io.use((socket: Socket, next) => {
 
 io.on("connection", (socket: Socket) => {
 	const userName = socket.handshake.auth.userName;
+
 	addNewUser(userName, socket.id);
+
 	socket.on("userList", () => {
 		io.sockets.emit("user-list", users);
 	});
 	socket.on("sendNotification", ({ senderName, receiverName, type }) => {
 		const receiver: any = getUser(receiverName);
+		console.log(type);
 		io.to(receiver.socketId).emit("getNotification", {
 			senderName,
 			type,
