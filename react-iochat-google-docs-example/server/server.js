@@ -10,8 +10,7 @@ mongoose
 	.then(() => console.log("MongoDB Connected..."))
 	.catch((err) => console.log(err));
 
-const io = require("socket.io");
-io.Socket(5000, {
+const io = require("socket.io")(5000, {
 	cors: {
 		origin: "http://localhost:3000",
 	},
@@ -35,25 +34,25 @@ io.on("connection", (socket) => {
 		setUserMap(_documentId, myId);
 		socket.broadcast.to(_documentId).emit("newUser", myId);
 	});
-});
 
-socket.on("save-document", async (data) => {
-	await Document.findByIdAndUpdate(_documentId, { data });
-});
+	socket.on("save-document", async (data) => {
+		await Document.findByIdAndUpdate(_documentId, { data });
+	});
 
-socket.on("send-changes", (delta) => {
-	socket.broadcast.to(_documentId).emit("receive-changes", delta);
-});
+	socket.on("send-changes", (delta) => {
+		socket.broadcast.to(_documentId).emit("receive-changes", delta);
+	});
 
-socket.on("cursor-changes", (range) => {
-	const myRooms = Array.from(socket.rooms);
-	socket.broadcast
-		.to(_documentId)
-		.emit("receive-cursor", { range: range, id: myRooms[0] });
-});
+	socket.on("cursor-changes", (range) => {
+		const myRooms = Array.from(socket.rooms);
+		socket.broadcast
+			.to(_documentId)
+			.emit("receive-cursor", { range: range, id: myRooms[0] });
+	});
 
-socket.on("disconnect", () => {
-	console.log("disconnect...");
+	socket.on("disconnect", () => {
+		console.log("disconnect...");
+	});
 });
 
 function setUserMap(documentId, myId) {
