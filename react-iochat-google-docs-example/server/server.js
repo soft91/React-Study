@@ -2,7 +2,7 @@ const mongoose = require("mongoose");
 const Document = require("./Schema");
 
 const uri =
-	"mongodb+srv://google-docs:1111@cluster0.6suahnm.mongodb.net/?retryWrites=true&w=majority";
+	"mongodb+srv://google-docs:1111@cluster0.u0k0baw.mongodb.net/?retryWrites=true&w=majority";
 
 mongoose.set("strictQuery", false);
 mongoose
@@ -10,7 +10,7 @@ mongoose
 	.then(() => console.log("MongoDB Connected..."))
 	.catch((err) => console.log(err));
 
-const io = require("socket.io")(5000, {
+const io = require("socket.io")(5001, {
 	cors: {
 		origin: "http://localhost:3000",
 	},
@@ -25,7 +25,6 @@ io.on("connection", (socket) => {
 		_documentId = documentId;
 		const document = await findOrCreateDocument(documentId);
 		socket.join(documentId);
-
 		socket.emit("initDocument", {
 			_document: document.data,
 			userList: userMap.get(documentId) || [],
@@ -66,7 +65,8 @@ function setUserMap(documentId, myId) {
 
 async function findOrCreateDocument(id) {
 	if (id == null) return;
+
 	const document = await Document.findById(id);
 	if (document) return document;
-	return await Document.create({ _id: id, data: defaultValue });
+	return await Document.create({ _id: id, data: "" });
 }

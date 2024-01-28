@@ -14,7 +14,7 @@ function App() {
 			<Routes>
 				<Route
 					path="/"
-					element={<Navigate replace to={`/document/${uuidV4()}`} />}
+					element={<Navigate replace to={`/documents/${uuidV4()}`} />}
 				/>
 				<Route path="/documents/:id" element={<EditorContainer />} />
 			</Routes>

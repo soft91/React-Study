@@ -19,7 +19,7 @@ const modules = {
 	],
 };
 
-Quill.register("module/cursors", QuillCursors);
+Quill.register("modules/cursors", QuillCursors);
 
 const TextEditor = ({
 	text,
