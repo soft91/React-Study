@@ -48,39 +48,37 @@ const Page = styled.button<{ selected: boolean }>`
 `;
 
 const Pagination = ({ pagination }: IPagination) => {
-	const [pageState, setPageState] = useState<number>(1);
-	const { page, cntPage, setPagination, totalCount } = pagination;
+	const { page, size, setPagination, totalCount } = pagination;
 
-	const maxPage = Math.ceil(totalCount / cntPage);
+	const maxPage = Math.ceil(totalCount / size);
 
-	const pageNumberList = useMemo(() => {
-		let pageNumbers = [];
+	const getPageNumbers = () => {
+		const pageNumbers = [];
+		const startPage = Math.floor((page - 1) / 10) * 10 + 1;
+		const endPage = Math.min(startPage + 9, maxPage);
 
-		for (let i = pageState; i < pageState + 5 && i <= maxPage; i++) {
+		for (let i = startPage; i <= endPage; i++) {
 			pageNumbers.push(i);
 		}
 
 		return pageNumbers;
-	}, [pageState]);
+	};
 
-	const selectPageNum = useCallback((value: number) => {
-		setPagination(cntPage, totalCount, value);
-	}, []);
+	const selectPageNum = useCallback(
+		(value: number) => {
+			setPagination(size, totalCount, value);
+		},
+		[size, setPagination, totalCount]
+	);
 
 	const goToPage = useCallback(
 		(move: string) => {
 			let nextPage = move === "next" ? page + 1 : page - 1;
 			nextPage = Math.min(Math.max(nextPage, 1), maxPage);
 
-			setPagination(cntPage, totalCount, nextPage);
-
-			if (nextPage % 5 === 1 && move === "next") {
-				setPageState((prev) => prev + 5);
-			} else if (nextPage % 5 === 0 && move === "prev") {
-				setPageState((prev) => prev - 5);
-			}
+			setPagination(size, totalCount, nextPage);
 		},
-		[page, cntPage, totalCount, maxPage, setPagination]
+		[page, size, totalCount, maxPage, setPagination]
 	);
 
 	const goToJumpPage = useCallback(
@@ -88,51 +86,43 @@ const Pagination = ({ pagination }: IPagination) => {
 			let nextPage;
 
 			if (move === "next") {
-				nextPage = Math.min(pageState + 5, maxPage);
+				nextPage = maxPage;
 			} else {
-				nextPage = Math.max(pageState - 5, 1);
+				nextPage = 1;
 			}
 
-			nextPage = Math.min(Math.max(nextPage, 1), maxPage);
-
-			setPagination(cntPage, totalCount, nextPage);
-
-			setPageState(nextPage);
+			setPagination(size, totalCount, nextPage);
 		},
-		[pageState, maxPage, cntPage, totalCount, setPagination]
+		[size, totalCount, setPagination, maxPage]
 	);
 
 	return (
 		<Container>
-			<Button
-				disabled={pageState - 5 < 1}
-				onClick={() => goToJumpPage("prev")}
-			>
-				{"<<"}
+			<Button disabled={page === 1} onClick={() => goToJumpPage("prev")}>
+				First
 			</Button>
 			<Button disabled={page === 1} onClick={() => goToPage("prev")}>
-				{"<"}
+				Previous
 			</Button>
 			<PageWrapper>
-				{pageNumberList.map((value) => (
+				{getPageNumbers().map((value) => (
 					<Page
 						key={value}
-						selected={value === pagination.page}
+						selected={value === page}
 						onClick={() => selectPageNum(value)}
-						disabled={value === pagination.page}
 					>
 						{value}
 					</Page>
 				))}
 			</PageWrapper>
 			<Button disabled={page === maxPage} onClick={() => goToPage("next")}>
-				{">"}
+				Next
 			</Button>
 			<Button
-				disabled={pageNumberList.length < 5}
+				disabled={page === maxPage}
 				onClick={() => goToJumpPage("next")}
 			>
-				{">>"}
+				Last
 			</Button>
 		</Container>
 	);
