@@ -10,7 +10,6 @@ export const mainContainerCss = css`
 export const slackMainCss = css`
 	display: flex;
 	flex-direction: column;
-	/* height: 60vh; */
 	width: 100%;
 	max-width: 1000px;
 	border: 1px solid #4a154b;
