@@ -11,8 +11,13 @@ export function Counter() {
 
 	return (
 		<div>
-			<span>{count}</span>
-			<button onClick={inc}>one up</button>
+			<span className="text-3xl font-bold underline">{count}</span>
+			<button
+				className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
+				onClick={inc}
+			>
+				one up
+			</button>
 		</div>
 	);
 }
