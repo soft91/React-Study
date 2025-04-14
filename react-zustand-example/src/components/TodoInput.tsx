@@ -1,9 +1,14 @@
 import React, { useState } from "react";
 import { useTodoStore } from "../store/todoStore";
+import { useShallow } from "zustand/shallow";
 
 export const TodoInput = () => {
 	const [text, setText] = useState("");
-	const { addTodo } = useTodoStore();
+	const { addTodo } = useTodoStore(
+		useShallow((state) => ({
+			addTodo: state.addTodo,
+		}))
+	);
 
 	const handleAddTodo = () => {
 		if (text.trim() === "") return;
