@@ -1,5 +1,5 @@
 import { create } from "zustand";
-import { persist } from "zustand/middleware";
+import { createJSONStorage, persist } from "zustand/middleware";
 import { nanoid } from "nanoid";
 
 type Todo = {
@@ -39,10 +39,12 @@ export const useTodoStore = create<TodoStore>()(
 				set((state) => ({
 					todos: state.todos.filter((todo) => todo.id !== id),
 				})),
-			clearTodos: () => set({ todos: [] }),
+			clearTodos: () =>
+				set((state) => (state.todos.length ? { todos: [] } : state)),
 		}),
 		{
 			name: "todo-storage",
+			storage: createJSONStorage(() => localStorage),
 		}
 	)
 );
