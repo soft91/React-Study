@@ -14,6 +14,7 @@ type TodoStore = {
 	toggleTodo: (id: string) => void; // Todo Toggle
 	removeTodo: (id: string) => void; // Todo Remove
 	clearTodos: () => void; // Todo Clear
+	editTodo: (id: string, newText: string) => void; // Todo Update
 };
 
 export const useTodoStore = create<TodoStore>()(
@@ -38,6 +39,12 @@ export const useTodoStore = create<TodoStore>()(
 			removeTodo: (id: string) =>
 				set((state) => ({
 					todos: state.todos.filter((todo) => todo.id !== id),
+				})),
+			editTodo: (id, newText) =>
+				set((state) => ({
+					todos: state.todos.map((todo) =>
+						todo.id === id ? { ...todo, text: newText } : todo
+					),
 				})),
 			clearTodos: () =>
 				set((state) => (state.todos.length ? { todos: [] } : state)),
