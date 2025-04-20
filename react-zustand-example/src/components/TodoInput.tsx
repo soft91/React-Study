@@ -18,20 +18,20 @@ export const TodoInput = () => {
 	};
 
 	return (
-		<div className="flex-1 w-full flex justify-center items-center gap-2">
+		<div className="flex-1 w-full flex justify-center items-center gap-2 max-w-md ">
 			<input
 				type="search"
 				placeholder="할 일을 입력하세요"
-				className="w-full max-w-md border border-gray-300 rounded-xl px-4 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500 shadow-sm"
+				className="w-full border border-gray-300 rounded-xl px-4 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500 shadow-sm"
 				value={text}
 				onChange={(e) => setText(e.target.value)}
 				onKeyDown={handleKeyDown}
 			/>
 			<button
-				className="px-2 py-2 max-w-md border bg-cyan-500 rounded-md"
+				className="px-5 py-2 max-w-md border bg-blue-600 rounded-md whitespace-nowrap text-white hover:bg-blue-500 transition duration-200 ease-in-out shadow-md"
 				onClick={handleAddTodo}
 			>
-				ADD
+				추가
 			</button>
 		</div>
 	);
