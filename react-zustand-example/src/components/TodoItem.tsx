@@ -29,7 +29,7 @@ export const TodoItem = ({ id }: Props) => {
 	if (!todo) return null;
 
 	return (
-		<li className="flex items-center justify-between bg-white p-4 rounded-xl shadow-sm hover:shadow-md transition">
+		<li className="flex items-center justify-between bg-white p-4 rounded-xl shadow-md hover:shadow-lg transition">
 			<div className="flex items-center space-x-3 w-full">
 				<input
 					type="checkbox"
@@ -42,7 +42,7 @@ export const TodoItem = ({ id }: Props) => {
 						type="text"
 						value={editText}
 						onChange={(e) => setEditText(e.target.value)}
-						className="flex-1 border border-gray-300 rounded px-2 py-1"
+						className="flex-1 border border-gray-300 rounded px-2 py-1 max-w-xs"
 					/>
 				) : (
 					<span
