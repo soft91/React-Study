@@ -1,8 +1,34 @@
 /** @type {import('tailwindcss').Config} */
-export default {
-	content: ["./index.html", "./src/**/*.{js,ts,jsx,tsx}"], // 경로 확인
+module.exports = {
+	darkMode: "class",
+	content: [
+		"./src/**/*.{js,ts,jsx,tsx}", // 꼭 경로 맞게 설정!
+	],
 	theme: {
-		extend: {},
+		extend: {
+			colors: {
+				border: "hsl(var(--border))",
+				input: "hsl(var(--input))",
+				ring: "hsl(var(--ring))",
+				background: "hsl(var(--background))",
+				foreground: "hsl(var(--foreground))",
+				primary: {
+					DEFAULT: "hsl(var(--primary))",
+					foreground: "hsl(var(--primary-foreground))",
+				},
+				secondary: {
+					DEFAULT: "hsl(var(--secondary))",
+					foreground: "hsl(var(--secondary-foreground))",
+				},
+				destructive: {
+					DEFAULT: "hsl(var(--destructive))",
+					foreground: "hsl(var(--destructive-foreground))",
+				},
+			},
+			borderRadius: {
+				lg: `var(--radius)`,
+			},
+		},
 	},
 	plugins: [],
 };

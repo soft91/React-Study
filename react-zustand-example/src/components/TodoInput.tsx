@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { useTodoStore } from "../store/todoStore";
+import { Button } from "./ui/button";
 export const TodoInput = () => {
 	const [text, setText] = useState("");
 	const addTodo = useTodoStore((state) => state.addTodo);
@@ -27,12 +28,13 @@ export const TodoInput = () => {
 				onChange={(e) => setText(e.target.value)}
 				onKeyDown={handleKeyDown}
 			/>
-			<button
-				className="px-5 py-2 max-w-md border bg-blue-600 rounded-md whitespace-nowrap text-white hover:bg-blue-500 transition duration-200 ease-in-out shadow-md"
+			<Button
+				variant="default"
+				// className="px-5 py-2 max-w-md border bg-blue-600 rounded-md whitespace-nowrap text-white hover:bg-blue-500 transition duration-200 ease-in-out shadow-md"
 				onClick={handleAddTodo}
 			>
 				추가
-			</button>
+			</Button>
 		</div>
 	);
 };
