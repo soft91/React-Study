@@ -1,26 +1,38 @@
-import React, { useState } from "react";
+"use client";
+
+import React, { useState, useCallback } from "react";
 import { useTodoStore } from "../store/todoStore";
 import { Button } from "./ui/button";
 import { Input } from "./ui/input";
+import { toast } from "sonner";
+
 export const TodoInput = () => {
 	const [text, setText] = useState("");
 	const addTodo = useTodoStore((state) => state.addTodo);
 
-	const handleAddTodo = () => {
-		if (text.trim() === "") return;
-		addTodo(text);
-		setText("");
-	};
-
-	const handleKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
-		if (e.key === "Enter" && text.trim() !== "") {
-			addTodo(text);
-			setText("");
+	const handleAddTodo = useCallback(() => {
+		const trimmedText = text.trim();
+		if (!trimmedText) {
+			toast.error("할 일을 입력하세요");
+			return;
 		}
-	};
+
+		addTodo(trimmedText);
+		setText("");
+		toast.success("할 일이 추가되었습니다");
+	}, [text, addTodo]);
+
+	const handleKeyDown = useCallback(
+		(e: React.KeyboardEvent<HTMLInputElement>) => {
+			if (e.key === "Enter") {
+				handleAddTodo();
+			}
+		},
+		[handleAddTodo]
+	);
 
 	return (
-		<div className="flex-1 w-full flex justify-center items-center gap-2 max-w-md ">
+		<div className="flex-1 w-full flex justify-center items-center gap-2 max-w-md">
 			<Input
 				type="search"
 				placeholder="할 일을 입력하세요"

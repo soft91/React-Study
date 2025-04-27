@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { useTodoStore } from "../store/todoStore";
+import { toast } from "sonner";
 
 type Props = {
 	id: string;
@@ -19,11 +20,17 @@ export const TodoItem = ({ id }: Props) => {
 	const handleSave = () => {
 		editTodo(todo.id, editText);
 		setIsEditing(false);
+		toast.success("할 일이 수정되었습니다");
 	};
 
 	const handleEditClick = () => {
 		setIsEditing(true);
 		setEditText(todo.text);
+	};
+
+	const handleRemoveClick = () => {
+		removeTodo(todo.id);
+		toast.success("할 일이 삭제되었습니다");
 	};
 
 	if (!todo) return null;
@@ -71,7 +78,7 @@ export const TodoItem = ({ id }: Props) => {
 					</button>
 				)}
 				<button
-					onClick={() => removeTodo(todo.id)}
+					onClick={handleRemoveClick}
 					className="text-red-500 hover:text-red-600 transition"
 				>
 					&times;
