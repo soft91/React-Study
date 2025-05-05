@@ -13,27 +13,27 @@ import { Editor, Frame } from "@craftjs/core";
 
 export default function App() {
 	return (
-		<div style={{ margin: "0 auto", width: "800px" }}>
+		<div>
 			<Typography variant="h5" align="center">
 				A super simple page editor
 			</Typography>
 			<Editor resolver={{ Card, Button, Text, Container }}>
 				<Grid container spacing={3}>
-					<Grid item xs>
+					<Grid size="grow">
 						<Frame>
 							<Container padding={5} background="#eee">
 								<Card />
 								<Button size="small" variant="outlined">
 									Click
 								</Button>
-								<Text size="small" text="Hi world!" />
+								<Text text="Hi world!" />
 								<Container padding={6} background="#999">
-									<Text size="small" text="It's me again!" />
+									<Text text="It's me again!" />
 								</Container>
 							</Container>
 						</Frame>
 					</Grid>
-					<Grid item xs={3}>
+					<Grid size={3}>
 						<Paper>
 							<Toolbox />
 							<SettingsPanel />

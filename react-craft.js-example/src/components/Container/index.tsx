@@ -1,5 +1,6 @@
 import React from "react";
 import { Paper } from "@mui/material";
+import { useNode } from "@craftjs/core";
 
 interface ContainerProps {
 	background?: string;
@@ -12,8 +13,17 @@ export const Container = ({
 	padding = 0,
 	children,
 }: ContainerProps) => {
+	const {
+		connectors: { connect, drag },
+	} = useNode();
+
 	return (
-		<Paper style={{ margin: "5px 0", background, padding: `${padding}px` }}>
+		<Paper
+			ref={(ref) => {
+				if (ref) connect(drag(ref));
+			}}
+			style={{ margin: "5px 0", background, padding: `${padding}px` }}
+		>
 			{children}
 		</Paper>
 	);
