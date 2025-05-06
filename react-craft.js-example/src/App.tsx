@@ -9,7 +9,7 @@ import { SettingsPanel } from "./components/SettingPanel";
 import { Container } from "./components/Container";
 import { Card } from "./components/Card";
 
-import { Editor, Frame } from "@craftjs/core";
+import { Editor, Element, Frame } from "@craftjs/core";
 
 export default function App() {
 	return (
@@ -17,23 +17,35 @@ export default function App() {
 			<Typography variant="h5" align="center">
 				A super simple page editor
 			</Typography>
-			<Editor resolver={{ Card, Button, Text, Container }}>
+			<Editor resolver={{ Card, Button, Text, Container, Element }}>
 				<Grid container spacing={3}>
 					<Grid size="grow">
 						<Frame>
-							<Container padding={5} background="#eee">
-								<Card />
-								<Button size="small" variant="outlined">
-									Click
-								</Button>
-								<Text text="Hi world!" />
-								<Container padding={6} background="#999">
-									<Text text="It's me again!" />
+							<Element
+								is={Container}
+								padding={5}
+								background="#eee"
+								canvas
+							>
+								<Container padding={5} background="#eee">
+									<Card />
+									<Button size="small" variant="outlined">
+										Click
+									</Button>
+									<Text text="Hi world!" />
+									<Element
+										is={Container}
+										padding={2}
+										background="#999"
+										canvas
+									>
+										<Text text="It's me again!" />
+									</Element>
 								</Container>
-							</Container>
+							</Element>
 						</Frame>
 					</Grid>
-					<Grid size={3}>
+					<Grid size={5}>
 						<Paper>
 							<Toolbox />
 							<SettingsPanel />

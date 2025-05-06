@@ -1,4 +1,3 @@
-import React from "react";
 import {
 	Box,
 	FormControlLabel,
@@ -11,13 +10,13 @@ export const Topbar = () => {
 	return (
 		<Box px={1} py={1} mt={3} mb={1} bgcolor="#cbe8e7">
 			<Grid container alignItems="center">
-				<Grid item xs>
+				<Grid size="grow">
 					<FormControlLabel
 						control={<Switch checked={true} />}
 						label="Enable"
 					/>
 				</Grid>
-				<Grid item>
+				<Grid>
 					<MaterialButton
 						size="small"
 						variant="outlined"
