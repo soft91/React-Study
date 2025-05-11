@@ -1,37 +1,55 @@
-import React from "react";
-import { Button as MaterialButton } from "@mui/material";
-import { useNode } from "@craftjs/core";
+import styled from "@emotion/styled";
 
-interface ButtonProps {
-	size?: "small" | "medium" | "large";
-	variant?: "text" | "outlined" | "contained";
+const ButtonStyled = styled.button<{ width?: string; height?: string }>`
+	width: ${(props) => props.width + "px" || "auto"};
+	height: ${(props) => props.height + "px" || "auto"};
+	background-color: #007bff;
+	color: white;
+	border: none;
+	border-radius: 4px;
+	padding: 10px 20px;
+	font-size: 16px;
+	cursor: pointer;
+	&:hover {
+		background-color: #0056b3;
+	}
+	&:active {
+		background-color: #004085;
+	}
+	&:disabled {
+		background-color: #007bff;
+		cursor: not-allowed;
+		opacity: 0.65;
+	}
+	&:focus {
+		outline: none;
+		box-shadow: 0 0 0 2px rgba(0, 123, 255, 0.5);
+	}
+	&:focus-visible {
+		outline: none;
+	}
+`;
+
+type ButtonProps = {
 	text?: string;
-	color?:
-		| "inherit"
-		| "primary"
-		| "secondary"
-		| "success"
-		| "error"
-		| "info"
-		| "warning";
-	children: React.ReactNode;
-}
+	width?: string;
+	height?: string;
+} & React.ButtonHTMLAttributes<HTMLButtonElement>;
 
-export const Button = ({ size, variant, color, children }: ButtonProps) => {
-	const {
-		connectors: { connect, drag },
-	} = useNode();
-
+export const Button = ({ text, width, height }: ButtonProps) => {
 	return (
-		<MaterialButton
-			ref={(ref) => {
-				if (ref) connect(drag(ref));
-			}}
-			size={size}
-			variant={variant}
-			color={color}
-		>
-			{children}
-		</MaterialButton>
+		<ButtonStyled width={width} height={height}>
+			{text}
+		</ButtonStyled>
 	);
+};
+
+Button.craft = {
+	displayName: "Button",
+	props: {
+		text: "Click me",
+		width: "100",
+		height: "50",
+	},
+	related: {},
 };

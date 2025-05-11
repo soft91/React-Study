@@ -28,10 +28,7 @@ export default function App() {
 								canvas
 							>
 								<Container padding={5} background="#eee">
-									<Card />
-									<Button size="small" variant="outlined">
-										Click
-									</Button>
+									<Button>Click</Button>
 									<Text text="Hi world!" />
 									<Element
 										is={Container}

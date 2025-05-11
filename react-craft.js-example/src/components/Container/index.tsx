@@ -1,12 +1,20 @@
 import React from "react";
-import { Paper } from "@mui/material";
 import { useNode } from "@craftjs/core";
+import styled from "@emotion/styled";
 
-interface ContainerProps {
+const ContainerStyled = styled.div<{
+	background?: string;
+	padding?: number;
+}>`
+	background: ${(props) => props.background || "#fff"};
+	padding: ${(props) => props.padding || 0}px;
+`;
+
+type ContainerProps = {
 	background?: string;
 	padding?: number;
 	children: React.ReactNode;
-}
+} & React.HTMLAttributes<HTMLDivElement>;
 
 export const Container = ({
 	background,
@@ -18,13 +26,23 @@ export const Container = ({
 	} = useNode();
 
 	return (
-		<Paper
+		<ContainerStyled
 			ref={(ref) => {
 				if (ref) connect(drag(ref));
 			}}
 			style={{ margin: "5px 0", background, padding: `${padding}px` }}
 		>
 			{children}
-		</Paper>
+		</ContainerStyled>
 	);
+};
+
+Container.craft = {
+	props: {
+		padding: 20,
+		background: "#fff",
+	},
+	rules: {
+		canDrag: () => true,
+	},
 };

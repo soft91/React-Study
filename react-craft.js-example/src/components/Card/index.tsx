@@ -1,26 +1,41 @@
 import React, { ReactNode } from "react";
 import { Text } from "../Text";
 import { Button } from "../Button";
-import { Container } from "../Container";
 import { Element } from "@craftjs/core";
+import styled from "@emotion/styled";
 
-export const Card = ({ background, padding = 20 }) => {
+const CardContainer = styled.div<{
+	background?: string;
+	padding?: number;
+}>`
+	background: ${(props) => props.background || "#fff"};
+	padding: ${(props) => props.padding || 20}px;
+`;
+
+type CardProps = {
+	background?: string;
+	padding?: number;
+	children?: ReactNode;
+} & React.HTMLAttributes<HTMLDivElement>;
+
+export const Card = ({ background, padding }: CardProps) => {
 	return (
-		<Container background={background} padding={padding}>
+		<CardContainer background={background} padding={padding}>
 			<Element id="text" canvas>
 				<Text text="Title" />
 				<Text text="Subtitle" />
 			</Element>
 			<Element className="buttons-only">
-				<Button
-					size="small"
-					text="Learn more"
-					variant="contained"
-					color="primary"
-				>
-					Learn more
-				</Button>
+				<Button text="Learn more">Learn more</Button>
 			</Element>
-		</Container>
+		</CardContainer>
 	);
+};
+
+Card.craft = {
+	displayName: "Card",
+	props: {
+		background: "#fff",
+		padding: 20,
+	},
 };
