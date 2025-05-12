@@ -1,11 +1,8 @@
 import React from "react";
-import { Typography, Paper, Grid } from "@mui/material";
-
 import { Button } from "./components/Button";
 import { Text } from "./components/Text";
 import { Toolbox } from "./components/Toolbox";
 import { SettingsPanel } from "./components/SettingPanel";
-
 import { Container } from "./components/Container";
 import { Card } from "./components/Card";
 
@@ -13,13 +10,15 @@ import { Editor, Element, Frame } from "@craftjs/core";
 
 export default function App() {
 	return (
-		<div>
-			<Typography variant="h5" align="center">
+		<div className="p-4">
+			<h1 className="text-2xl font-semibold text-center mb-6">
 				A super simple page editor
-			</Typography>
-			<Editor resolver={{ Card, Button, Text, Container, Element }}>
-				<Grid container spacing={3}>
-					<Grid size="grow">
+			</h1>
+
+			<Editor resolver={{ Card, Button, Text, Container }}>
+				<div className="grid grid-cols-1 md:grid-cols-5 gap-4">
+					{/* Canvas Area */}
+					<div className="md:col-span-3 bg-gray-100 p-4 rounded shadow">
 						<Frame>
 							<Element
 								is={Container}
@@ -41,14 +40,12 @@ export default function App() {
 								</Container>
 							</Element>
 						</Frame>
-					</Grid>
-					<Grid size={5}>
-						<Paper>
-							<Toolbox />
-							<SettingsPanel />
-						</Paper>
-					</Grid>
-				</Grid>
+					</div>
+					<div className="md:col-span-2 bg-white rounded shadow p-4 space-y-4">
+						<Toolbox />
+						<SettingsPanel />
+					</div>
+				</div>
 			</Editor>
 		</div>
 	);

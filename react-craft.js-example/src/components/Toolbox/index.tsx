@@ -1,26 +1,26 @@
 import React from "react";
-import { Box, Typography, Grid, Button as MaterialButton } from "@mui/material";
 
 export const Toolbox = () => {
 	return (
-		<Box px={2} py={2}>
-			<Grid container direction="column" alignItems="center" spacing={1}>
-				<Box pb={2}>
-					<Typography>Drag to add</Typography>
-				</Box>
-				<Grid container direction="column">
-					<MaterialButton variant="contained">Button</MaterialButton>
-				</Grid>
-				<Grid container direction="column">
-					<MaterialButton variant="contained">Text</MaterialButton>
-				</Grid>
-				<Grid container direction="column">
-					<MaterialButton variant="contained">Container</MaterialButton>
-				</Grid>
-				<Grid container direction="column">
-					<MaterialButton variant="contained">Card</MaterialButton>
-				</Grid>
-			</Grid>
-		</Box>
+		<div className="p-4 flex flex-col items-center gap-3">
+			<div className="pb-2">
+				<p className="text-gray-800 text-sm">Drag to add</p>
+			</div>
+
+			<div className="flex flex-col gap-2 w-full">
+				<button className="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600 transition">
+					Button
+				</button>
+				<button className="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600 transition">
+					Text
+				</button>
+				<button className="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600 transition">
+					Container
+				</button>
+				<button className="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600 transition">
+					Card
+				</button>
+			</div>
+		</div>
 	);
 };

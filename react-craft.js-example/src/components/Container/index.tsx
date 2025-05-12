@@ -1,5 +1,5 @@
 import React from "react";
-import { useNode } from "@craftjs/core";
+import { useNode, UserComponent } from "@craftjs/core";
 import styled from "@emotion/styled";
 
 const ContainerStyled = styled.div<{
@@ -16,7 +16,8 @@ type ContainerProps = {
 	children: React.ReactNode;
 } & React.HTMLAttributes<HTMLDivElement>;
 
-export const Container = ({
+// 🔧 Craft.js와 호환되도록 타입 지정
+export const Container: UserComponent<ContainerProps> = ({
 	background,
 	padding = 0,
 	children,
@@ -30,13 +31,15 @@ export const Container = ({
 			ref={(ref) => {
 				if (ref) connect(drag(ref));
 			}}
-			style={{ margin: "5px 0", background, padding: `${padding}px` }}
+			background={background}
+			padding={padding}
 		>
 			{children}
 		</ContainerStyled>
 	);
 };
 
+// Craft metadata 추가
 Container.craft = {
 	props: {
 		padding: 20,
