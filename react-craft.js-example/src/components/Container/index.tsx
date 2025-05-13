@@ -17,7 +17,7 @@ type ContainerProps = {
 } & React.HTMLAttributes<HTMLDivElement>;
 
 // 🔧 Craft.js와 호환되도록 타입 지정
-export const Container: UserComponent<ContainerProps> = ({
+export const Container: UserComponent = ({
 	background,
 	padding = 0,
 	children,
