@@ -9,7 +9,7 @@ import { Editor, Element, Frame } from "@craftjs/core";
 
 export default function App() {
 	return (
-		<div className="p-4">
+		<div className="p-4 flex flex-col item-center justify-center min-h-screen bg-gray-50 m-auto">
 			<h1 className="text-2xl font-semibold text-center mb-6">
 				A super simple page editor
 			</h1>
@@ -20,24 +20,11 @@ export default function App() {
 					<div className="md:col-span-3 bg-gray-100 p-4 rounded shadow">
 						<Frame>
 							<Element
-								is={Container}
+								is="div"
 								padding={5}
 								background="#eee"
 								canvas
-							>
-								<Container padding={5} background="#eee">
-									<Button>Click</Button>
-									<Text text="Hi world!" />
-									<Element
-										is={Container}
-										padding={2}
-										background="#999"
-										canvas
-									>
-										<Text text="It's me again!" />
-									</Element>
-								</Container>
-							</Element>
+							></Element>
 						</Frame>
 					</div>
 					<div className="md:col-span-2 bg-white rounded shadow p-4 space-y-4">

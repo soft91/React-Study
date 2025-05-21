@@ -44,6 +44,8 @@ Container.craft = {
 	props: {
 		padding: 20,
 		background: "#fff",
+		width: "100%",
+		height: "100%",
 	},
 	rules: {
 		canDrag: () => true,
