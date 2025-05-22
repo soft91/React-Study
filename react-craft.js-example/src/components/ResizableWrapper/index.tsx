@@ -16,12 +16,11 @@ export function ResizableWrapper({ children }: ResizableWrapperProps) {
 	} = useNode((node) => ({
 		width: node.data.props.width as number,
 		height: node.data.props.height as number,
+		props: node.data.props,
 	}));
 
-	// ✅ 로컬 상태로 유지
 	const [localSize, setLocalSize] = useState({ width, height });
 
-	// ✅ Craft.js 상태가 바뀌었을 때 반영
 	useEffect(() => {
 		setLocalSize({ width, height });
 	}, [width, height]);
@@ -39,8 +38,7 @@ export function ResizableWrapper({ children }: ResizableWrapperProps) {
 				const newWidth = ref.offsetWidth;
 				const newHeight = ref.offsetHeight;
 
-				// ✅ 리사이즈 끝났을 때 Craft.js에 동기화
-				setProp((props: any) => {
+				setProp((props) => {
 					props.width = newWidth;
 					props.height = newHeight;
 				}, 100);

@@ -16,11 +16,10 @@ export default function App() {
 
 			<Editor resolver={{ Card, Button, Text, Container }}>
 				<div className="grid grid-cols-1 md:grid-cols-5 gap-4">
-					{/* Canvas Area */}
 					<div className="md:col-span-3 bg-gray-100 p-4 rounded shadow">
 						<Frame>
 							<Element
-								is="div"
+								is={Container}
 								padding={5}
 								background="#eee"
 								canvas
