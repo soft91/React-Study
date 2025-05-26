@@ -17,6 +17,7 @@
     "@mui/material": "^7.0.2",
     "@tailwindcss/vite": "^4.1.5",
     "material-ui-color-picker": "^3.5.1",
+    "re-resizable": "^6.11.2",
     "react": "^19.0.0",
     "react-contenteditable": "^3.3.7",
     "react-dom": "^19.0.0",

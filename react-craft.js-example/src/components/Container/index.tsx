@@ -1,53 +1,89 @@
 import React from "react";
-import { useNode, UserComponent } from "@craftjs/core";
-import styled from "@emotion/styled";
 
-const ContainerStyled = styled.div<{
-	background?: string;
-	padding?: number;
-}>`
-	background: ${(props) => props.background || "#fff"};
-	padding: ${(props) => props.padding || 0}px;
-`;
+import { Resizer } from "../Resizer";
 
-type ContainerProps = {
-	background?: string;
-	padding?: number;
+export type ContainerProps = {
+	background: Record<"r" | "g" | "b" | "a", number>;
+	color: Record<"r" | "g" | "b" | "a", number>;
+	flexDirection: string;
+	alignItems: string;
+	justifyContent: string;
+	fillSpace: string;
+	width: string;
+	height: string;
+	padding: string[];
+	margin: string[];
+	marginTop: number;
+	marginLeft: number;
+	marginBottom: number;
+	marginRight: number;
+	shadow: number;
 	children: React.ReactNode;
-} & React.HTMLAttributes<HTMLDivElement>;
+	radius: number;
+};
 
-// 🔧 Craft.js와 호환되도록 타입 지정
-export const Container: UserComponent = ({
-	background,
-	padding = 0,
-	children,
-}: ContainerProps) => {
+const defaultProps = {
+	flexDirection: "column",
+	alignItems: "flex-start",
+	justifyContent: "flex-start",
+	fillSpace: "no",
+	padding: ["0", "0", "0", "0"],
+	margin: ["0", "0", "0", "0"],
+	background: { r: 255, g: 255, b: 255, a: 1 },
+	color: { r: 0, g: 0, b: 0, a: 1 },
+	shadow: 0,
+	radius: 0,
+	width: "100%",
+	height: "auto",
+};
+
+export const Container = (props: Partial<ContainerProps>) => {
+	props = {
+		...defaultProps,
+		...props,
+	};
 	const {
-		connectors: { connect, drag },
-	} = useNode();
-
+		flexDirection,
+		alignItems,
+		justifyContent,
+		fillSpace,
+		background,
+		color,
+		padding,
+		margin,
+		shadow,
+		radius,
+		children,
+	} = props;
 	return (
-		<ContainerStyled
-			ref={(ref) => {
-				if (ref) connect(drag(ref));
+		<Resizer
+			propKey={{ width: "width", height: "height" }}
+			style={{
+				justifyContent,
+				flexDirection,
+				alignItems,
+				background: `rgba(${Object.values(background)})`,
+				color: `rgba(${Object.values(color)})`,
+				padding: `${padding[0]}px ${padding[1]}px ${padding[2]}px ${padding[3]}px`,
+				margin: `${margin[0]}px ${margin[1]}px ${margin[2]}px ${margin[3]}px`,
+				boxShadow:
+					shadow === 0
+						? "none"
+						: `0px 3px 100px ${shadow}px rgba(0, 0, 0, 0.13)`,
+				borderRadius: `${radius}px`,
+				flex: fillSpace === "yes" ? 1 : "unset",
 			}}
-			background={background}
-			padding={padding}
 		>
 			{children}
-		</ContainerStyled>
+		</Resizer>
 	);
 };
 
-// Craft metadata 추가
 Container.craft = {
-	props: {
-		padding: 20,
-		background: "#fff",
-		width: "100%",
-		height: "100%",
-	},
+	displayName: "Container",
+	props: defaultProps,
 	rules: {
 		canDrag: () => true,
 	},
+	related: {},
 };

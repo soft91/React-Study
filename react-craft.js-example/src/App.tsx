@@ -19,9 +19,12 @@ export default function App() {
 					<div className="md:col-span-3 bg-gray-100 p-4 rounded shadow">
 						<Frame>
 							<Element
-								is={Container}
+								is="div"
 								padding={5}
-								background="#eee"
+								background="#d2d2d2"
+								style={{
+									height: "300px",
+								}}
 								canvas
 							></Element>
 						</Frame>
