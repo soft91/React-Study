@@ -1,7 +1,6 @@
 import React from "react";
 import { useNode } from "@craftjs/core";
 import styled from "@emotion/styled";
-import { ResizableWrapper } from "../ResizableWrapper";
 
 const TypographyContainer = styled.div`
 	display: flex;
@@ -19,15 +18,13 @@ export const Text = ({ text }: TextProps) => {
 	} = useNode();
 
 	return (
-		<ResizableWrapper>
-			<TypographyContainer
-				ref={(ref) => {
-					if (ref) connect(drag(ref));
-				}}
-			>
-				<span>{text}</span>
-			</TypographyContainer>
-		</ResizableWrapper>
+		<TypographyContainer
+			ref={(ref) => {
+				if (ref) connect(drag(ref));
+			}}
+		>
+			<span>{text}</span>
+		</TypographyContainer>
 	);
 };
 

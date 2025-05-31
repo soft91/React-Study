@@ -1,5 +1,4 @@
 import styled from "@emotion/styled";
-import { ResizableWrapper } from "../ResizableWrapper";
 
 const ButtonStyled = styled.button`
 	width: 100%;
@@ -45,11 +44,7 @@ type ButtonProps = {
 } & React.ButtonHTMLAttributes<HTMLButtonElement>;
 
 export const Button = ({ text }: ButtonProps) => {
-	return (
-		<ResizableWrapper>
-			<ButtonStyled>{text}</ButtonStyled>
-		</ResizableWrapper>
-	);
+	return <ButtonStyled>{text}</ButtonStyled>;
 };
 
 Button.craft = {
