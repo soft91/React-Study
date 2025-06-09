@@ -6,6 +6,7 @@ import { Container } from "./components/Container";
 import { Card } from "./components/Card";
 
 import { Editor, Element, Frame } from "@craftjs/core";
+import { Topbar } from "./components/Topbar";
 
 export default function App() {
 	return (
@@ -15,6 +16,7 @@ export default function App() {
 			</h1>
 
 			<Editor resolver={{ Card, Button, Text, Container }}>
+				<Topbar />
 				<div className="grid grid-cols-1 md:grid-cols-5 gap-4">
 					<div className="md:col-span-3 bg-gray-100 p-4 rounded shadow">
 						<Frame>

@@ -41,16 +41,37 @@ export const Topbar = () => {
 			const tag = componentToTag[node.type?.resolvedName] || "div";
 			const props = node.props || {};
 			const children = (node.nodes || []).map(renderNode).join("");
-
 			const content = props.text ?? children;
 
+			// style 객체를 inline style string으로 변환
+			const styleString = props.style
+				? Object.entries(props.style)
+						.map(
+							([k, v]) =>
+								`${k.replace(
+									/[A-Z]/g,
+									(match) => `-${match.toLowerCase()}`
+								)}:${v}`
+						)
+						.join(";")
+				: "";
+
+			// 나머지 속성 (style 제외)
 			const attrString = Object.entries(props)
-				.filter(([key]) => key !== "text")
+				.filter(([key]) => key !== "text" && key !== "style")
 				.map(([key, value]) => `${key}="${value}"`)
 				.join(" ");
 
+			// 최종적으로 style 속성을 추가
+			const finalAttrs = [
+				attrString,
+				styleString && `style="${styleString}"`,
+			]
+				.filter(Boolean)
+				.join(" ");
+
 			return `<${tag}${
-				attrString ? ` ${attrString}` : ""
+				finalAttrs ? ` ${finalAttrs}` : ""
 			}>${content}</${tag}>`;
 		};
 
