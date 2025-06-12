@@ -1,4 +1,6 @@
+import { useNode } from "@craftjs/core";
 import styled from "@emotion/styled";
+import { Resizable } from "re-resizable";
 
 const ButtonStyled = styled.button`
 	width: 100%;
@@ -39,20 +41,39 @@ const ButtonStyled = styled.button`
 
 type ButtonProps = {
 	text?: string;
-	width?: string;
-	height?: string;
+	width?: number;
+	height?: number;
 } & React.ButtonHTMLAttributes<HTMLButtonElement>;
 
-export const Button = ({ text }: ButtonProps) => {
-	return <ButtonStyled>{text}</ButtonStyled>;
+export const Button = ({ text = "Click me" }: ButtonProps) => {
+	const { setProp, width, height } = useNode((node) => ({
+		width: node.data.props.width,
+		height: node.data.props.height,
+	}));
+
+	return (
+		<Resizable
+			size={{
+				width: width || 200,
+				height: height || 50,
+			}}
+			onResizeStop={(e, direction, ref, d) => {
+				setProp((props) => {
+					props.width = (width || 200) + d.width;
+					props.height = (height || 50) + d.height;
+				}, 100);
+			}}
+		>
+			<ButtonStyled>{text}</ButtonStyled>
+		</Resizable>
+	);
 };
 
 Button.craft = {
 	displayName: "Button",
 	props: {
 		text: "Click me",
-		width: "100",
-		height: "50",
+		width: 200,
+		height: 50,
 	},
-	related: {},
 };
