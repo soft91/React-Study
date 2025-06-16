@@ -1,5 +1,6 @@
 import React from "react";
 import { useNode } from "@craftjs/core";
+import { ResizableWrapper } from "../../utils/ResizableWrapper";
 
 type SimpleContainerProps = {
 	background?: string;
@@ -21,7 +22,7 @@ export const Container = ({
 	justifyContent = "flex-start",
 	alignItems = "flex-start",
 	width = "100%",
-	height = "auto",
+	height = "50px",
 	children,
 }: SimpleContainerProps) => {
 	const {
@@ -29,28 +30,30 @@ export const Container = ({
 	} = useNode();
 
 	return (
-		<div
-			ref={(ref) => {
-				if (ref) {
-					connect(drag(ref));
-				}
-			}}
-			style={{
-				background,
-				padding,
-				margin,
-				display: "flex",
-				flexDirection,
-				justifyContent,
-				alignItems,
-				width,
-				height,
-				boxSizing: "border-box",
-				border: "1px dashed #ccc",
-			}}
-		>
-			{children}
-		</div>
+		<ResizableWrapper>
+			<div
+				ref={(ref) => {
+					if (ref) {
+						connect(drag(ref));
+					}
+				}}
+				style={{
+					background,
+					padding,
+					margin,
+					display: "flex",
+					flexDirection,
+					justifyContent,
+					alignItems,
+					width,
+					height,
+					boxSizing: "border-box",
+					border: "1px dashed #ccc",
+				}}
+			>
+				{children}
+			</div>
+		</ResizableWrapper>
 	);
 };
 
@@ -64,9 +67,7 @@ Container.craft = {
 		justifyContent: "flex-start",
 		alignItems: "flex-start",
 		width: "100%",
-		height: "auto",
+		height: "50px",
 	},
-	rules: {
-		canDrag: () => true,
-	},
+	isCanvas: true,
 };
