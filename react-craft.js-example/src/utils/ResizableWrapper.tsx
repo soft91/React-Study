@@ -22,6 +22,16 @@ export const ResizableWrapper = ({ children }: ResizableWrapperProps) => {
 					props.height = height + d.height;
 				}, 100);
 			}}
+			handleStyles={{
+				top: { background: "red", height: "6px" },
+				right: { background: "blue", width: "6px" },
+				bottom: { background: "green", height: "6px" },
+				left: { background: "orange", width: "6px" },
+				topRight: { background: "purple" },
+				bottomRight: { background: "pink" },
+				bottomLeft: { background: "cyan" },
+				topLeft: { background: "yellow" },
+			}}
 		>
 			{children}
 		</Resizable>
