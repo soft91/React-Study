@@ -5,7 +5,6 @@ import { Button } from "../Button";
 import { Text } from "../Text";
 import { Container } from "../Container";
 import { Card } from "../Card";
-import { DoubleContainer } from "../DoubleContainer";
 
 export const Toolbox = () => {
 	const { connectors } = useEditor();
@@ -42,15 +41,6 @@ export const Toolbox = () => {
 					className="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600 transition text-center cursor-move"
 				>
 					Container
-				</div>
-
-				<div
-					ref={(ref) => {
-						if (ref) connectors.create(ref, <DoubleContainer />);
-					}}
-					className="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600 transition text-center cursor-move"
-				>
-					DoubleContainer
 				</div>
 			</div>
 		</div>
