@@ -49,6 +49,8 @@ export const Container = ({
 					height,
 					boxSizing: "border-box",
 					border: "1px dashed #ccc",
+					position: "relative",
+					minHeight: "50px",
 				}}
 			>
 				{children}
@@ -70,4 +72,10 @@ Container.craft = {
 		height: "50px",
 	},
 	isCanvas: true,
+	rules: {
+		canDrag: () => false,
+		canMoveIn: (incoming: any) => true,
+		canMoveOut: () => true,
+		canDelete: () => true,
+	},
 };

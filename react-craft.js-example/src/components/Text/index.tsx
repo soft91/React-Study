@@ -37,6 +37,8 @@ Text.craft = {
 		text: "Hello world!",
 	},
 	rules: {
-		canDrag: () => true,
+		canDrag: () => false,
+		canMoveIn: () => true,
+		canMoveOut: () => true,
 	},
 };
