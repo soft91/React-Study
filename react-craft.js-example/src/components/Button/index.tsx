@@ -1,6 +1,7 @@
 import styled from "@emotion/styled";
 import { ResizableWrapper } from "../../utils/ResizableWrapper";
-import { useNode } from "@craftjs/core";
+import { useEditor, useNode } from "@craftjs/core";
+import { useRef } from "react";
 
 const ButtonStyled = styled.button`
 	width: 100%;
@@ -14,6 +15,7 @@ const ButtonStyled = styled.button`
 	cursor: pointer;
 	transition: all 0.15s ease-in-out;
 	will-change: width, height;
+	user-select: none;
 
 	&:hover {
 		background-color: #0056b3;
@@ -46,22 +48,18 @@ type ButtonProps = {
 } & React.ButtonHTMLAttributes<HTMLButtonElement>;
 
 export const Button = ({ text = "Click me" }: ButtonProps) => {
+
 	const {
 		connectors: { connect, drag },
-		width,
-		height,
-	} = useNode((node) => ({
-		width: node.data.props.width || 200,
-		height: node.data.props.height || 50,
-	}));
+	} = useNode();
+
+	const buttonRef = useRef<HTMLButtonElement>(null);
 
 	return (
 		<ResizableWrapper>
 			<ButtonStyled
 				ref={(ref) => {
-					if (ref) {
-						connect(drag(ref));
-					}
+					if (ref) connect(drag(ref));
 				}}
 			>
 				{text}
@@ -77,9 +75,10 @@ Button.craft = {
 		width: 200,
 		height: 50,
 	},
+	isCanvas: false,
 	rules: {
-		canDrag: () => false,
-		canMoveIn: () => true,
-		canMoveOut: () => true,
+		canDrag: true,
+		canMoveIn: false,
+		canMoveOut: false,
 	},
 };
