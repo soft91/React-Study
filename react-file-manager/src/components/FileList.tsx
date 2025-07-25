@@ -284,113 +284,72 @@ const NodeRow: React.FC<
 		return (
 			<div
 				ref={(el) => {
-					// 모든 아이템에 드래그 기능 추가
 					if (el) {
 						drag(el);
-						// 폴더인 경우에만 드롭 기능도 추가
 						if (node.isFolder) {
 							drop(el);
 						}
 					}
 				}}
-				className={`border rounded p-2 w-full aspect-square flex flex-col items-center justify-center hover:bg-gray-100 cursor-pointer select-none relative transition-all duration-200 ${
-					selectedIds.includes(node.id)
-						? "!ring-2 !ring-blue-400 !bg-blue-50 !border-blue-300"
-						: ""
-				} ${
-					isOver && canDrop
-						? "!ring-2 !ring-green-400 !bg-green-100 !border-green-300"
-						: ""
-				} ${
-					isInClipboard
-						? clipboardType === "copy"
-							? "!ring-2 !ring-green-400 !bg-green-50 !border-green-300"
-							: "!ring-2 !ring-orange-400 !bg-orange-50 !border-orange-300"
-						: ""
-				} ${isDragging ? "opacity-50 scale-95" : ""}`}
+				className={`relative rounded-lg border bg-white shadow-sm flex flex-col items-center justify-center p-3 w-full aspect-square transition-all duration-200 cursor-pointer select-none
+					${selectedIds.includes(node.id) ? 'ring-2 ring-blue-500 bg-blue-50 border-blue-300 shadow-md' : 'hover:shadow-md hover:bg-gray-50'}
+					${isOver && canDrop ? 'ring-2 ring-green-400 bg-green-100/60 border-green-300' : ''}
+					${isInClipboard ? (clipboardType === 'copy' ? 'ring-2 ring-green-400 bg-green-50 border-green-300' : 'ring-2 ring-orange-400 bg-orange-50 border-orange-300') : ''}
+					${isDragging ? 'opacity-60 scale-95' : ''}`}
 				onClick={handleNodeClick}
 				onDoubleClick={handleNodeDoubleClick}
 				onContextMenu={handleContextMenu}
 				style={{ opacity: isDragging ? 0.5 : 1 }}
 			>
-				{/* 선택 상태 디버깅 표시 */}
+				{/* 선택 체크 표시 */}
 				{selectedIds.includes(node.id) && (
-					<div className="absolute top-1 left-1 z-10">
-						<div className="w-4 h-4 bg-blue-500 rounded-full flex items-center justify-center">
-							<span className="text-white text-xs font-bold">✓</span>
-						</div>
+					<div className="absolute top-2 left-2 z-10 w-5 h-5 bg-blue-500 text-white rounded-full flex items-center justify-center shadow text-xs font-bold">
+						✓
 					</div>
 				)}
-
 				{/* 클립보드 상태 표시 */}
 				{isInClipboard && (
-					<div className="absolute top-1 right-1 z-10">
-						{clipboardType === "copy" ? (
-							<div className="w-5 h-5 bg-green-500 rounded-full flex items-center justify-center shadow-lg">
-								<span className="text-white text-xs font-bold">C</span>
-							</div>
-						) : (
-							<div className="w-5 h-5 bg-orange-500 rounded-full flex items-center justify-center shadow-lg">
-								<span className="text-white text-xs font-bold">X</span>
-							</div>
-						)}
+					<div className={`absolute top-2 right-2 z-10 w-5 h-5 rounded-full flex items-center justify-center shadow text-xs font-bold ${clipboardType === 'copy' ? 'bg-green-500/80' : 'bg-orange-500/80'} text-white`}>
+						{clipboardType === 'copy' ? 'C' : 'X'}
 					</div>
 				)}
-
-				{/* 드래그 중 표시 */}
+				{/* 드래그 중 오버레이 */}
 				{isDragging && (
-					<div className="absolute inset-0 bg-blue-200 bg-opacity-50 rounded flex items-center justify-center z-20">
-						<div className="bg-blue-500 text-white px-2 py-1 rounded text-xs font-bold">
-							드래그 중
-						</div>
+					<div className="absolute inset-0 bg-blue-200/60 rounded-lg flex items-center justify-center z-20">
+						<div className="bg-blue-500 text-white px-2 py-1 rounded text-xs font-bold shadow">드래그 중</div>
 					</div>
 				)}
-
-				{/* 드롭 가능 표시 */}
+				{/* 드롭 가능 오버레이 */}
 				{isOver && canDrop && (
-					<div className="absolute inset-0 bg-green-200 bg-opacity-30 rounded border-2 border-green-500 border-dashed z-10">
-						<div className="absolute inset-0 flex items-center justify-center">
-							<div className="bg-green-500 text-white px-2 py-1 rounded text-xs font-bold">
-								여기에 드롭
-							</div>
-						</div>
+					<div className="absolute inset-0 bg-green-200/40 rounded-lg border-2 border-green-500 border-dashed z-10 flex items-center justify-center">
+						<div className="bg-green-500 text-white px-2 py-1 rounded text-xs font-bold shadow">여기에 드롭</div>
 					</div>
 				)}
-
-				{/* 아이콘/이미지 */}
-				<div className="flex justify-center items-center mb-1 flex-1">
+				{/* 아이콘/썸네일 */}
+				<div className="flex justify-center items-center mb-2 flex-1 w-full">
 					{node.isFolder ? (
-						<FolderIcon className="text-yellow-500 w-10 h-10" />
+						<FolderIcon className="text-yellow-500 w-14 h-14" />
 					) : imageUrls.get(node.id) ? (
-						<img
-							src={imageUrls.get(node.id)}
-							alt={node.name}
-							className="w-10 h-10 object-cover rounded"
-						/>
+						<img src={imageUrls.get(node.id)} alt={node.name} className="w-14 h-14 object-cover rounded shadow-sm" />
 					) : (
-						<FileIcon className="text-gray-500 w-10 h-10" />
+						<FileIcon className="text-gray-500 w-14 h-14" />
 					)}
 				</div>
-
-				{/* 이름 */}
-				<div className="text-center text-xs truncate w-full px-1">
+				{/* 이름 영역 */}
+				<div className="text-center text-xs font-medium w-full px-1 break-words line-clamp-2">
 					{editing ? (
 						<input
-							ref={(el) => el?.focus()}
+							ref={el => el?.focus()}
 							type="text"
 							value={tempName}
 							onChange={handleInputChange}
 							onKeyDown={handleInputKeyDown}
 							onBlur={handleInputBlur}
 							onClick={handleNameClick}
-							className="text-center bg-white border border-blue-300 rounded px-1 text-xs w-full"
+							className="text-center bg-white border border-blue-300 rounded px-1 text-xs w-full shadow-sm"
 						/>
 					) : (
-						<span
-							onClick={handleNameClick}
-							className="block truncate"
-							title={node.name}
-						>
+						<span onClick={handleNameClick} className="block truncate" title={node.name}>
 							{node.name}
 						</span>
 					)}
