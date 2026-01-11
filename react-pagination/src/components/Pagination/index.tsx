@@ -1,45 +1,91 @@
 import styled from "styled-components";
 import { IPagination } from "./types";
-import { useState, useCallback, useMemo } from "react";
 
 const Container = styled.div`
 	display: flex;
 	flex-wrap: wrap;
 	justify-content: center;
 	align-items: center;
-	width: 30rem;
-	margin-top: 3.2rem;
+	gap: 8px;
+	margin-top: 2rem;
+	padding: 1rem;
 `;
 
 const Button = styled.button`
 	cursor: pointer;
-	background-color: #ffffff;
+	background: #ffffff;
+	border: 1px solid #e2e8f0;
+	border-radius: 8px;
+	padding: 10px 16px;
+	font-size: 0.875rem;
+	font-weight: 500;
+	color: #4a5568;
+	transition: all 0.2s ease;
+	box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05);
+
+	&:hover:not(:disabled) {
+		background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+		color: #ffffff;
+		border-color: transparent;
+		box-shadow: 0 4px 6px rgba(102, 126, 234, 0.25);
+		transform: translateY(-1px);
+	}
+
+	&:active:not(:disabled) {
+		transform: translateY(0);
+		box-shadow: 0 2px 4px rgba(102, 126, 234, 0.2);
+	}
+
 	&:disabled {
-		color: #e2e2ea;
-		cursor: default;
+		color: #cbd5e0;
+		cursor: not-allowed;
+		background: #f7fafc;
+		border-color: #e2e8f0;
+		box-shadow: none;
 	}
 `;
 
 const PageWrapper = styled.div`
 	display: flex;
-	margin: 0 16px;
+	gap: 6px;
+	margin: 0 8px;
 `;
 
 const Page = styled.button<{ selected: boolean }>`
-	width: 2.8rem;
-	height: 2.8rem;
-	font-size: 1.2rem;
-	line-height: 1.6rem;
+	width: 2.75rem;
+	height: 2.75rem;
+	font-size: 0.9rem;
+	font-weight: 600;
+	line-height: 1;
 	text-align: center;
-	letter-spacing: 0.01rem;
-	border-radius: 100%;
-	background-color: ${({ selected }) =>
-		selected ? "#363740" : "transparent"};
-	color: ${({ selected }) => (selected ? "#fff" : "#666666")};
+	border-radius: 8px;
+	background: ${({ selected }) =>
+		selected
+			? "linear-gradient(135deg, #667eea 0%, #764ba2 100%)"
+			: "#ffffff"};
+	color: ${({ selected }) => (selected ? "#ffffff" : "#4a5568")};
+	border: ${({ selected }) => (selected ? "none" : "1px solid #e2e8f0")};
 	cursor: pointer;
+	transition: all 0.2s ease;
+	box-shadow: ${({ selected }) =>
+		selected
+			? "0 4px 6px rgba(102, 126, 234, 0.25)"
+			: "0 1px 2px rgba(0, 0, 0, 0.05)"};
 
-	& + & {
-		margin-left: 4px;
+	&:hover:not(:disabled) {
+		background: ${({ selected }) =>
+			selected
+				? "linear-gradient(135deg, #5a67d8 0%, #6b46c1 100%)"
+				: "linear-gradient(135deg, #667eea 0%, #764ba2 100%)"};
+		color: #ffffff;
+		border-color: transparent;
+		box-shadow: 0 4px 8px rgba(102, 126, 234, 0.3);
+		transform: translateY(-2px);
+	}
+
+	&:active:not(:disabled) {
+		transform: translateY(0);
+		box-shadow: 0 2px 4px rgba(102, 126, 234, 0.2);
 	}
 
 	&:disabled {
@@ -48,53 +94,8 @@ const Page = styled.button<{ selected: boolean }>`
 `;
 
 const Pagination = ({ pagination }: IPagination) => {
-	const { page, size, setPagination, totalCount } = pagination;
-
-	const maxPage = Math.ceil(totalCount / size);
-
-	const getPageNumbers = () => {
-		const pageNumbers = [];
-		const startPage = Math.floor((page - 1) / 10) * 10 + 1;
-		const endPage = Math.min(startPage + 9, maxPage);
-
-		for (let i = startPage; i <= endPage; i++) {
-			pageNumbers.push(i);
-		}
-
-		return pageNumbers;
-	};
-
-	const selectPageNum = useCallback(
-		(value: number) => {
-			setPagination(size, totalCount, value);
-		},
-		[size, setPagination, totalCount]
-	);
-
-	const goToPage = useCallback(
-		(move: string) => {
-			let nextPage = move === "next" ? page + 1 : page - 1;
-			nextPage = Math.min(Math.max(nextPage, 1), maxPage);
-
-			setPagination(size, totalCount, nextPage);
-		},
-		[page, size, totalCount, maxPage, setPagination]
-	);
-
-	const goToJumpPage = useCallback(
-		(move: string) => {
-			let nextPage;
-
-			if (move === "next") {
-				nextPage = maxPage;
-			} else {
-				nextPage = 1;
-			}
-
-			setPagination(size, totalCount, nextPage);
-		},
-		[size, totalCount, setPagination, maxPage]
-	);
+	const { page, maxPage, pageNumbers, selectPageNum, goToPage, goToJumpPage } =
+		pagination;
 
 	return (
 		<Container>
@@ -105,7 +106,7 @@ const Pagination = ({ pagination }: IPagination) => {
 				Previous
 			</Button>
 			<PageWrapper>
-				{getPageNumbers().map((value) => (
+				{pageNumbers.map((value) => (
 					<Page
 						key={value}
 						selected={value === page}
